@@ -126,8 +126,6 @@ def okologi_nuanceret():
 def okologi_esg():
     return render_template('okologi/okologi_esg.html')
 
-# Add more routes for your other pages here
-
 # ============================================================================
 # CO2 CALCULATOR
 # ============================================================================

@@ -1,0 +1,50 @@
+{% extends "base.html" %}
+{% block title %}En Datadrevet Tilgang - Vidensbank{% endblock %}
+{% block content %}
+<header style="position: relative; min-height: 60vh; display: flex; align-items: center; justify-content: center; text-align: center; color: #ffffff; background-image: url('https://images.unsplash.com/photo-1632372254856-43c6e0d63e87'); background-size: cover; background-position: center;">
+    <div style="position: absolute; inset: 0; background: linear-gradient(135deg, rgba(244, 208, 63, 0.85), rgba(243, 156, 18, 0.75));"></div>
+    <div style="position: relative; z-index: 1; padding: 2rem;">
+        <h1 style="font-family: 'Times New Roman', serif; font-size: 3.5rem; font-weight: normal; line-height: 1.2; text-transform: uppercase; margin: 0; text-shadow: 2px 2px 4px rgba(0,0,0,0.3);">En Datadrevet Tilgang</h1>
+        <p style="font-size: 1.2rem; margin-top: 20px; max-width: 700px; margin-left: auto; margin-right: auto; text-shadow: 1px 1px 3px rgba(0,0,0,0.3);">Forståelse af fødevarers klimaaftryk gennem data, strategisk indkøb og menuudvikling.</p>
+    </div>
+</header>
+<section class="py-5">
+    <div class="container">
+        <h2 style="font-family: 'Times New Roman', serif; font-size: 2.5rem; font-weight: 700; color: #333; text-align: center; margin-bottom: 1rem;">Datadrevne Beslutninger</h2>
+        <div style="width: 80px; height: 8px; background-color: #f4d03f; margin: 1rem auto 3rem; border-radius: 4px;"></div>
+        <p style="text-align: center; font-size: 1.1rem; color: #555; max-width: 800px; margin: 0 auto 3rem; line-height: 1.6;">Ved at bruge data og analyser kan vi træffe informerede valg om fødevarer og menuplanlægning, der minimerer klimaaftrykket.</p>
+        <div class="row g-4">
+            <div class="col-md-4">
+                <div style="background: #fff; padding: 2rem; border-radius: 12px; box-shadow: 0 4px 15px rgba(0,0,0,0.08); height: 100%;">
+                    <div style="font-size: 3rem; color: #f4d03f; margin-bottom: 1rem;">📊</div>
+                    <h3 style="font-size: 1.5rem; font-weight: 700; color: #333; margin-bottom: 1rem;">CONCITO's Database</h3>
+                    <p style="color: #555; line-height: 1.6;">Over 540 fødevarer med detaljerede klimadata tilgængelige for professionelle køkkener.</p>
+                </div>
+            </div>
+            <div class="col-md-4">
+                <div style="background: #fff; padding: 2rem; border-radius: 12px; box-shadow: 0 4px 15px rgba(0,0,0,0.08); height: 100%;">
+                    <div style="font-size: 3rem; color: #f4d03f; margin-bottom: 1rem;">🔍</div>
+                    <h3 style="font-size: 1.5rem; font-weight: 700; color: #333; margin-bottom: 1rem;">Strategisk Indkøb</h3>
+                    <p style="color: #555; line-height: 1.6;">Vælg ingredienser baseret på klimaaftryk og lokal tilgængelighed for optimal bæredygtighed.</p>
+                </div>
+            </div>
+            <div class="col-md-4">
+                <div style="background: #fff; padding: 2rem; border-radius: 12px; box-shadow: 0 4px 15px rgba(0,0,0,0.08); height: 100%;">
+                    <div style="font-size: 3rem; color: #f4d03f; margin-bottom: 1rem;">📈</div>
+                    <h3 style="font-size: 1.5rem; font-weight: 700; color: #333; margin-bottom: 1rem;">Menuoptimering</h3>
+                    <p style="color: #555; line-height: 1.6;">Design menuer der balancerer smag, ernæring og klimahensyn ved hjælp af dataanalyse.</p>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+<section class="py-5" style="background-color: #fff9e6;">
+    <div class="container">
+        <div class="text-center p-5" style="background: #fff; border-radius: 12px; max-width: 800px; margin: 0 auto; box-shadow: 0 4px 15px rgba(0,0,0,0.08);">
+            <h2 style="font-size: 2rem; font-weight: 700; color: #333; margin-bottom: 1rem;">Klar til at optimere din menu?</h2>
+            <p style="font-size: 1.1rem; color: #555; margin-bottom: 2rem;">Udforsk vores klimaberegner og se hvordan du kan reducere din kantines klimaaftryk.</p>
+            <a href="{{ url_for('calculator') }}" class="btn btn-warning btn-lg">Start Klimaberegner</a>
+        </div>
+    </div>
+</section>
+{% endblock %}
