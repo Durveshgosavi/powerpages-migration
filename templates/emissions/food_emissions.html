@@ -1,9 +1,325 @@
 {% extends "base.html" %}
+
+{% block title %}Fra Jord til Bord - Fødevarerelaterede Emissioner{% endblock %}
+
+{% block extra_css %}
+<style>
+/* Hero Section */
+.food-hero {
+    display: flex;
+    align-items: center;
+    min-height: 60vh;
+    background-size: cover;
+    background-position: center;
+    position: relative;
+    padding: 40px;
+    background-image: url('https://images.unsplash.com/photo-1511018761631-2e3eb1e4c972?ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&q=80&w=1740');
+}
+
+.food-hero-overlay {
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: linear-gradient(135deg, rgba(46, 139, 87, 0.85) 0%, rgba(76, 175, 80, 0.75) 100%);
+}
+
+/* Impact Cards */
+.impact-card {
+    background: #ffffff;
+    border-radius: 12px;
+    padding: 2rem;
+    box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+    text-align: center;
+    transition: transform 0.3s ease;
+}
+
+.impact-card:hover {
+    transform: translateY(-5px);
+}
+
+.impact-label {
+    font-weight: 700;
+    font-size: 0.9rem;
+    text-transform: uppercase;
+    margin-bottom: 0.5rem;
+}
+
+.impact-title {
+    font-size: 1.1rem;
+    font-weight: 600;
+    margin-bottom: 1rem;
+    color: #333;
+}
+
+.impact-number {
+    font-size: 2.5rem;
+    font-weight: 700;
+    margin-bottom: 0.25rem;
+}
+
+.impact-unit {
+    font-size: 0.9rem;
+    color: #666;
+    margin-bottom: 1rem;
+}
+
+/* Bar Chart */
+.chart-bar {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    margin-bottom: 1.5rem;
+}
+
+.chart-label {
+    min-width: 120px;
+    font-weight: 600;
+    color: #333;
+}
+
+.chart-track {
+    flex: 1;
+    background: #e0e0e0;
+    height: 30px;
+    border-radius: 5px;
+    overflow: hidden;
+}
+
+.chart-fill {
+    height: 100%;
+}
+
+.chart-value {
+    min-width: 100px;
+    font-weight: 600;
+    text-align: right;
+}
+
+/* Strategy Cards */
+.strategy-card {
+    background: #f8f9fa;
+    padding: 2rem;
+    border-radius: 12px;
+    box-shadow: 0 4px 15px rgba(0,0,0,0.08);
+}
+
+.strategy-number {
+    display: inline-block;
+    background: #2E8B57;
+    color: white;
+    width: 50px;
+    height: 50px;
+    border-radius: 50%;
+    text-align: center;
+    line-height: 50px;
+    font-size: 1.5rem;
+    font-weight: 700;
+    margin-bottom: 1rem;
+}
+
+.strategy-list {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+}
+
+.strategy-list li {
+    margin-bottom: 0.75rem;
+    padding-left: 1.5rem;
+    position: relative;
+    line-height: 1.6;
+    color: #555;
+}
+
+.strategy-list li::before {
+    content: '•';
+    position: absolute;
+    left: 0;
+    color: #2E8B57;
+    font-weight: 700;
+}
+</style>
+{% endblock %}
+
 {% block content %}
-<section class="section">
-  <div class="container">
-    <h1 class="section-title">Side under opbygning</h1>
-    <p style="text-align: center;">Denne side er under udvikling. Kom snart tilbage!</p>
-  </div>
+<!-- Hero Section -->
+<section class="food-hero">
+    <div class="food-hero-overlay"></div>
+    <div style="position: relative; z-index: 1; max-width: 1200px; margin: 0 auto; width: 100%;">
+        <h1 style="font-family: 'Times New Roman', serif; font-size: 3.5rem; font-weight: normal; line-height: 1.2; text-transform: uppercase; color: #fff; margin-bottom: 20px; text-shadow: 2px 2px 4px rgba(0,0,0,0.3);">
+            Fra Jord til Bord
+        </h1>
+        <p style="font-size: 1.2rem; color: white; max-width: 700px; line-height: 1.6; text-shadow: 1px 1px 3px rgba(0,0,0,0.4);">
+            Præcis måling af klimapåvirkning gennem robuste data og videnskabelig metodologi fra CONCITOs klimadatabase.
+        </p>
+    </div>
+</section>
+
+<!-- Main Content -->
+<section class="py-5 bg-white">
+    <div class="container">
+        <h2 style="font-size: 2.5rem; font-weight: 700; text-align: center; margin-bottom: 1rem; color: #2E8B57;">
+            Væsentligheden af Fødevarerelaterede Emissioner
+        </h2>
+        <div style="width: 100px; height: 3px; background: #4CAF50; margin: 0 auto 2rem;"></div>
+        <p style="text-align: center; max-width: 800px; margin: 0 auto 3rem; font-size: 1.1rem; line-height: 1.6; color: #555;">
+            For at måle klimapåvirkningen fra fødevarer præcist, benytter vi et datacentreret perspektiv.
+            CONCITOs "Den Store Klimadatabase" er et afgørende værktøj, der giver robuste, danske kontekstuelle data.
+        </p>
+
+        <!-- Impact Cards -->
+        <div class="row g-4 my-5">
+            <div class="col-md-4">
+                <div class="impact-card" style="border-left: 5px solid #e74c3c;">
+                    <div class="impact-label" style="color: #e74c3c;">Høj-Impact</div>
+                    <div class="impact-title">Oksekød & Lam</div>
+                    <div class="impact-number" style="color: #e74c3c;">25-100+</div>
+                    <div class="impact-unit">kg CO₂e pr. kg</div>
+                    <div style="font-size: 0.85rem; color: #777; line-height: 1.4;">
+                        Drevet af metan og arealanvendelse
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-4">
+                <div class="impact-card" style="border-left: 5px solid #f39c12;">
+                    <div class="impact-label" style="color: #f39c12;">Mellem-Impact</div>
+                    <div class="impact-title">Svinekød, Fjerkræ, Ost</div>
+                    <div class="impact-number" style="color: #f39c12;">3-10</div>
+                    <div class="impact-unit">kg CO₂e pr. kg</div>
+                    <div style="font-size: 0.85rem; color: #777; line-height: 1.4;">
+                        Drevet af foderproduktion
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-4">
+                <div class="impact-card" style="border-left: 5px solid #27ae60;">
+                    <div class="impact-label" style="color: #27ae60;">Lav-Impact</div>
+                    <div class="impact-title">Grøntsager & Bælgfrugter</div>
+                    <div class="impact-number" style="color: #27ae60;">&lt; 2</div>
+                    <div class="impact-unit">kg CO₂e pr. kg</div>
+                    <div style="font-size: 0.85rem; color: #777; line-height: 1.4;">
+                        Effektiv arealanvendelse
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Bar Chart -->
+        <div style="background: #f8f9fa; padding: 2rem; border-radius: 12px; margin-top: 3rem;">
+            <h3 style="font-size: 1.8rem; font-weight: 700; text-align: center; margin-bottom: 2rem; color: #2E8B57;">
+                Sammenligning af Fødevare-emissioner
+            </h3>
+
+            <div class="chart-bar">
+                <div class="chart-label">Oksekød</div>
+                <div class="chart-track">
+                    <div class="chart-fill" style="width: 100%; background: linear-gradient(90deg, #e74c3c, #c0392b);"></div>
+                </div>
+                <div class="chart-value" style="color: #e74c3c;">60 kg CO₂e</div>
+            </div>
+
+            <div class="chart-bar">
+                <div class="chart-label">Lam</div>
+                <div class="chart-track">
+                    <div class="chart-fill" style="width: 85%; background: linear-gradient(90deg, #e74c3c, #c0392b);"></div>
+                </div>
+                <div class="chart-value" style="color: #e74c3c;">50 kg CO₂e</div>
+            </div>
+
+            <div class="chart-bar">
+                <div class="chart-label">Ost</div>
+                <div class="chart-track">
+                    <div class="chart-fill" style="width: 25%; background: linear-gradient(90deg, #f39c12, #e67e22);"></div>
+                </div>
+                <div class="chart-value" style="color: #f39c12;">15 kg CO₂e</div>
+            </div>
+
+            <div class="chart-bar">
+                <div class="chart-label">Kylling</div>
+                <div class="chart-track">
+                    <div class="chart-fill" style="width: 15%; background: linear-gradient(90deg, #f39c12, #e67e22);"></div>
+                </div>
+                <div class="chart-value" style="color: #f39c12;">9 kg CO₂e</div>
+            </div>
+
+            <div class="chart-bar">
+                <div class="chart-label">Bælgfrugter</div>
+                <div class="chart-track">
+                    <div class="chart-fill" style="width: 3%; background: linear-gradient(90deg, #27ae60, #229954);"></div>
+                </div>
+                <div class="chart-value" style="color: #27ae60;">2 kg CO₂e</div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- CTA Section -->
+<section class="py-5" style="background: #e8f5e9;">
+    <div class="container">
+        <div style="max-width: 900px; margin: 0 auto; background: #ffffff; padding: 2.5rem; border-radius: 12px; box-shadow: 0 4px 15px rgba(0,0,0,0.1); border-left: 5px solid #2E8B57;">
+            <h2 style="font-size: 2rem; font-weight: 700; margin-bottom: 1rem; color: #2E8B57;">
+                Strategisk Opdatering fra CONCITO
+            </h2>
+            <p style="font-size: 1.1rem; line-height: 1.7; color: #555; margin: 0;">
+                En analyse fra juni 2024 indikerer, at Danmarks 2030-klimamål er i fare.
+                Det faktuelle behov for reduktioner er større end regeringens estimater,
+                hvilket øger presset på fødevare- og landbrugssektoren for at accelerere dekarbonisering.
+            </p>
+        </div>
+    </div>
+</section>
+
+<!-- Strategy Section -->
+<section class="py-5 bg-white">
+    <div class="container">
+        <h2 style="font-size: 2.5rem; font-weight: 700; text-align: center; margin-bottom: 1rem; color: #2E8B57;">
+            Strategiske Skridt til Dekarbonisering
+        </h2>
+        <div style="width: 100px; height: 3px; background: #4CAF50; margin: 0 auto 3rem;"></div>
+
+        <div class="row g-4">
+            <div class="col-md-6">
+                <div class="strategy-card">
+                    <div class="strategy-number">01</div>
+                    <h3 style="font-size: 1.5rem; font-weight: 700; margin-bottom: 1rem; color: #333;">
+                        Strategisk Indkøb & Menuudvikling
+                    </h3>
+                    <ul class="strategy-list">
+                        <li>
+                            <strong>Datadrevet sourcing:</strong> Brug data til at vælge ingredienser med lavt klimaaftryk.
+                        </li>
+                        <li>
+                            <strong>Leverandørengagement:</strong> Samarbejd med leverandører om bæredygtighed.
+                        </li>
+                        <li>
+                            <strong>Menuoptimering:</strong> Design menuer, der minimerer CO₂e pr. portion.
+                        </li>
+                    </ul>
+                </div>
+            </div>
+
+            <div class="col-md-6">
+                <div class="strategy-card">
+                    <div class="strategy-number">02</div>
+                    <h3 style="font-size: 1.5rem; font-weight: 700; margin-bottom: 1rem; color: #333;">
+                        Operationel Effektivitet
+                    </h3>
+                    <ul class="strategy-list">
+                        <li>
+                            <strong>Reduktion af madspild:</strong> Implementer systemer til at måle og mindske madspild.
+                        </li>
+                        <li>
+                            <strong>Energioptimering:</strong> Brug energieffektivt udstyr.
+                        </li>
+                        <li>
+                            <strong>Teknologi:</strong> Investér i smart-styring af ventilation og køling.
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
 </section>
 {% endblock %}

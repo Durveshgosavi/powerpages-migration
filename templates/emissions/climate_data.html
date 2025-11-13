@@ -1,9 +1,220 @@
 {% extends "base.html" %}
+
+{% block title %}Klimadata - National Emissionsprofil{% endblock %}
+
+{% block extra_css %}
+<style>
+/* Hero Banner */
+.climate-hero {
+    background-image: url('https://images.unsplash.com/photo-1542601906990-b4d3fb778b09');
+    background-size: cover;
+    background-position: center;
+    position: relative;
+    min-height: 60vh;
+    display: flex;
+    align-items: center;
+}
+
+.climate-hero-overlay {
+    position: absolute;
+    inset: 0;
+    background: rgba(0, 0, 0, 0.5);
+}
+
+/* Stat Cards */
+.stat-card {
+    background: #fff;
+    border-radius: 12px;
+    padding: 2rem;
+    box-shadow: 0 8px 25px rgba(0,0,0,0.08);
+    text-align: center;
+    transition: transform 0.3s ease;
+}
+
+.stat-card:hover {
+    transform: translateY(-5px);
+}
+
+.stat-number {
+    font-family: 'Times New Roman', serif;
+    font-size: 3.5rem;
+    font-weight: 700;
+    color: #5cb85c;
+    margin-bottom: 1rem;
+}
+
+.stat-label {
+    font-size: 1rem;
+    color: #555;
+    line-height: 1.6;
+}
+
+/* Timeline */
+.timeline-dot {
+    width: 70px;
+    height: 70px;
+    border-radius: 50%;
+    border: 4px solid #fff;
+    box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+}
+
+.timeline-card {
+    background: #fff;
+    border-radius: 12px;
+    padding: 30px;
+    box-shadow: 0 8px 25px rgba(0,0,0,0.08);
+}
+</style>
+{% endblock %}
+
 {% block content %}
-<section class="section">
-  <div class="container">
-    <h1 class="section-title">Side under opbygning</h1>
-    <p style="text-align: center;">Denne side er under udvikling. Kom snart tilbage!</p>
-  </div>
+<!-- Hero Banner -->
+<section class="climate-hero">
+    <div class="climate-hero-overlay"></div>
+    <div class="container" style="position: relative; z-index: 1;">
+        <h1 style="font-family: 'Times New Roman', serif; font-size: 3.5rem; font-weight: normal; text-transform: uppercase; color: #fff; margin-bottom: 1rem; text-shadow: 2px 2px 4px rgba(0,0,0,0.3);">
+            National Emissionsprofil og Klimadata
+        </h1>
+        <p style="font-size: 1.2rem; color: #fff; max-width: 700px;">
+            Et overblik over Danmarks klimaaftryk og de politiske milepæle, der former fremtidens fødevaresektor.
+        </p>
+    </div>
+</section>
+
+<!-- Statistics Section -->
+<section class="py-5 bg-white">
+    <div class="container">
+        <div class="row g-4">
+            <div class="col-md-4">
+                <div class="stat-card">
+                    <div class="stat-number">11t</div>
+                    <div class="stat-label">
+                        CO₂e pr. Indbygger<br>
+                        ~opvarmning af et typisk dansk hjem i 6 år
+                    </div>
+                    <small class="text-muted d-block mt-2">(Danish Energy Agency, 2024)</small>
+                </div>
+            </div>
+            <div class="col-md-4">
+                <div class="stat-card">
+                    <div class="stat-number">~30%</div>
+                    <div class="stat-label">Fødevarers Andel af Emissioner</div>
+                    <small class="text-muted d-block mt-2">(CONCITO, 2024)</small>
+                </div>
+            </div>
+            <div class="col-md-4">
+                <div class="stat-card">
+                    <div class="stat-number">385K</div>
+                    <div class="stat-label">
+                        Ton Madspild Årligt<br>
+                        ~ fodre alle i en by som Aarhus i mere end et år
+                    </div>
+                    <small class="text-muted d-block mt-2">(Danish Environment Agency, 2024)</small>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Timeline Section -->
+<section class="py-5" style="background: linear-gradient(135deg, #f5f8fa, #eef2f7);">
+    <div class="container" style="max-width: 1000px;">
+        <h2 style="font-family: 'Times New Roman', serif; font-size: 2.5rem; font-weight: 700; color: #333; text-align: center; margin-bottom: 1rem;">
+            Vigtige Politiske Milepæle
+        </h2>
+        <div style="width: 80px; height: 8px; background-color: #a0d7a5; margin: 1rem auto 3rem; border-radius: 4px;"></div>
+        <p style="text-align: center; font-size: 1.1rem; color: #555; max-width: 700px; margin: 0 auto 3rem; line-height: 1.6;">
+            Danmarks vejkort mod en bæredygtig fødevaresektor med afgørende lovændringer og klimamål.
+        </p>
+
+        <!-- Timeline Container -->
+        <div style="position: relative; padding: 40px 0;">
+            <!-- Vertical Line -->
+            <div style="position: absolute; left: 50%; top: 0; bottom: 0; width: 4px; background: linear-gradient(180deg, #a0d7a5, #ffc857, #f4a261); transform: translateX(-50%);"></div>
+
+            <!-- Timeline Items -->
+            <div style="display: grid; gap: 60px;">
+                <!-- 2021 -->
+                <div class="row align-items-center">
+                    <div class="col-md-6 text-end pe-5">
+                        <div class="timeline-card">
+                            <div style="font-family: 'Times New Roman', serif; font-size: 2.2rem; color: #a0d7a5; font-weight: 700; margin-bottom: 10px;">2021</div>
+                            <h3 style="font-size: 1.3rem; font-weight: 700; color: #333; margin: 0 0 10px;">Klimalov & Kostråd</h3>
+                            <p style="font-size: 0.95rem; color: #666; line-height: 1.6; margin: 0;">
+                                Danmarks Klimalov vedtages med et 70% reduktionsmål for 2030, og klimahensyn integreres i De Officielle Kostråd.
+                            </p>
+                        </div>
+                    </div>
+                    <div class="col-md-6 position-relative">
+                        <div class="timeline-dot" style="background: #a0d7a5; position: absolute; left: -35px; top: 50%; transform: translateY(-50%);"></div>
+                    </div>
+                </div>
+
+                <!-- 2024 -->
+                <div class="row align-items-center">
+                    <div class="col-md-6 position-relative">
+                        <div class="timeline-dot" style="background: #ffc857; position: absolute; right: -35px; top: 50%; transform: translateY(-50%);"></div>
+                    </div>
+                    <div class="col-md-6 ps-5">
+                        <div class="timeline-card">
+                            <div style="font-family: 'Times New Roman', serif; font-size: 2.2rem; color: #ffc857; font-weight: 700; margin-bottom: 10px;">2024</div>
+                            <h3 style="font-size: 1.3rem; font-weight: 700; color: #333; margin: 0 0 10px;">Afgift på Husdyremissioner Vedtaget</h3>
+                            <p style="font-size: 0.95rem; color: #666; line-height: 1.6; margin: 0;">
+                                En ny lov indfører en afgift på CO₂e-emissioner fra husdyrproduktion, som træder i kraft i 2030.
+                            </p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- 2025 -->
+                <div class="row align-items-center">
+                    <div class="col-md-6 text-end pe-5">
+                        <div class="timeline-card">
+                            <div style="font-family: 'Times New Roman', serif; font-size: 2.2rem; color: #f4a261; font-weight: 700; margin-bottom: 10px;">2025</div>
+                            <h3 style="font-size: 1.3rem; font-weight: 700; color: #333; margin: 0 0 10px;">Statslig Klimamærkning</h3>
+                            <p style="font-size: 0.95rem; color: #666; line-height: 1.6; margin: 0;">
+                                En obligatorisk klimamærkning på fødevarer forventes implementeret for at øge gennemsigtigheden for forbrugerne.
+                            </p>
+                        </div>
+                    </div>
+                    <div class="col-md-6 position-relative">
+                        <div class="timeline-dot" style="background: #f4a261; position: absolute; left: -35px; top: 50%; transform: translateY(-50%);"></div>
+                    </div>
+                </div>
+
+                <!-- 2030 -->
+                <div class="row align-items-center">
+                    <div class="col-md-6 position-relative">
+                        <div class="timeline-dot" style="background: #a0d7a5; position: absolute; right: -35px; top: 50%; transform: translateY(-50%);"></div>
+                    </div>
+                    <div class="col-md-6 ps-5">
+                        <div class="timeline-card">
+                            <div style="font-family: 'Times New Roman', serif; font-size: 2.2rem; color: #a0d7a5; font-weight: 700; margin-bottom: 10px;">2030</div>
+                            <h3 style="font-size: 1.3rem; font-weight: 700; color: #333; margin: 0 0 10px;">Afgift Implementeres</h3>
+                            <p style="font-size: 0.95rem; color: #666; line-height: 1.6; margin: 0;">
+                                Afgiften på husdyremissioner træder i kraft med en sats på 300 DKK pr. ton CO₂e, accelererende den grønne omstilling.
+                            </p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- 2035 -->
+                <div class="row align-items-center">
+                    <div class="col-md-6 text-end pe-5">
+                        <div class="timeline-card">
+                            <div style="font-family: 'Times New Roman', serif; font-size: 2.2rem; color: #ffc857; font-weight: 700; margin-bottom: 10px;">2035</div>
+                            <h3 style="font-size: 1.3rem; font-weight: 700; color: #333; margin: 0 0 10px;">Afgift Forhøjes</h3>
+                            <p style="font-size: 0.95rem; color: #666; line-height: 1.6; margin: 0;">
+                                Afgiften stiger markant til 750 DKK pr. ton CO₂e for at accelerere den grønne omstilling i landbruget.
+                            </p>
+                        </div>
+                    </div>
+                    <div class="col-md-6 position-relative">
+                        <div class="timeline-dot" style="background: #ffc857; position: absolute; left: -35px; top: 50%; transform: translateY(-50%);"></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
 </section>
 {% endblock %}
