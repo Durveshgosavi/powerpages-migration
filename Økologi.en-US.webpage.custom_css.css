@@ -1,0 +1,192 @@
+/* Økologi Section Styles - Based on Emission Pages */
+:root {
+  --ff-display: 'AWConqueror Std Inline', Georgia, serif;
+  --cheval-gron: #a0d7a5;
+  --cheval-gul: #ffe066;
+  --cheval-orange: #ffb347;
+  --text-dark: #222;
+  --white: #fff;
+  --section-bg: #f5f8fa;
+}
+
+body {
+  font-family: 'Inter', Arial, sans-serif;
+  background: var(--section-bg);
+  color: var(--text-dark);
+  margin: 0;
+  padding: 0;
+}
+
+.hero-banner, .hero-video-container {
+  display: flex;
+  align-items: center;
+  min-height: 60vh;
+  background-size: cover;
+  background-position: center;
+  position: relative;
+  padding: 40px;
+}
+
+.hero-title {
+  font-family: var(--ff-display);
+  font-size: 3.5rem;
+  font-weight: normal;
+  line-height: 1.2;
+  text-transform: uppercase;
+  text-align: left;
+  color: var(--cheval-gron);
+}
+
+.hero-subtitle {
+  font-size: 1.2rem;
+  color: var(--white);
+  max-width: 700px;
+  margin-top: 20px;
+  margin-left: auto;
+  margin-right: auto;
+  text-align: left;
+}
+
+.section {
+  padding-block-start: 4rem;
+  padding-block-end: 3rem;
+  align-items: center;
+}
+
+.container {
+  width: min(90%, 60rem);
+  margin-inline-start: auto;
+  margin-inline-end: auto;
+}
+
+.section-title {
+  font-family: var(--ff-display);
+  line-height: 1.2;
+  font-size: 2.5rem;
+  font-weight: 700;
+  color: #333;
+  margin-bottom: 2rem;
+}
+
+.wavy-underline {
+  width: 80px;
+  height: 8px;
+  background: url('data:image/svg+xml;utf8,<svg width="80" height="8" xmlns="http://www.w3.org/2000/svg"><path d="M0 4 Q 20 0, 40 4 T 80 4" stroke="%23a0d7a5" stroke-width="3" fill="none"/></svg>') no-repeat center;
+  margin-bottom: 2rem;
+}
+
+.grid-layout {
+  display: grid;
+  gap: 1.5rem;
+}
+
+.grid-4-col {
+  grid-template-columns: repeat(auto-fit, minmax(15rem, 1fr));
+}
+
+.grid-2-col {
+  grid-template-columns: 1fr 1fr;
+}
+
+.card-grid {
+  margin-block-start: 2.5rem;
+}
+
+.flip-card {
+  background: none;
+  border: none;
+  perspective: 1000px;
+  text-decoration: none;
+}
+
+.flip-card-inner {
+  position: relative;
+  width: 100%;
+  height: 220px;
+  transition: transform 0.6s;
+  transform-style: preserve-3d;
+}
+
+.flip-card:hover .flip-card-inner {
+  transform: rotateY(180deg);
+}
+
+.flip-card-front, .flip-card-back {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  backface-visibility: hidden;
+  border-radius: 12px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 1.5rem;
+}
+
+.flip-card-front {
+  background-size: cover;
+  background-position: center;
+  color: #fff;
+}
+
+.flip-card-back {
+  background: var(--cheval-gron);
+  color: #222;
+  transform: rotateY(180deg);
+}
+
+.cta-button {
+  padding: 12px 24px;
+  border-radius: 50px;
+  text-decoration: none;
+  color: #fff;
+  font-weight: 600;
+  display: inline-block;
+  transition: background-color 0.3s ease;
+  margin-top: 20px;
+}
+
+.cta-button.primary {
+  background-color: var(--cheval-gron);
+}
+
+.cta-button.secondary {
+  background-color: var(--cheval-orange);
+}
+
+.kpi-dashboard {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+}
+
+.kpi-card {
+  background: #fff;
+  border-radius: 12px;
+  box-shadow: 0 10px 20px rgba(0,0,0,0.07);
+  padding: 1.5rem;
+  margin-bottom: 1rem;
+}
+
+.kpi-label {
+  font-size: 1.1rem;
+  color: var(--cheval-gron);
+  font-weight: 600;
+}
+
+.kpi-number {
+  font-size: 2rem;
+  font-weight: 700;
+  color: var(--cheval-orange);
+}
+
+.fade-in {
+  opacity: 0;
+  animation: fadeIn 1s forwards;
+}
+
+@keyframes fadeIn {
+  to { opacity: 1; }
+}
+
+/* Infographic styles will be added in okologi-infographics.js */ 
