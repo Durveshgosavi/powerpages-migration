@@ -1,0 +1,28 @@
+<footer class="site-footer">
+    <div class="container">
+        <div class="row">
+            <div class="col-md-4">
+                <h3>Om Vidensbank</h3>
+                <p>Din centrale kilde til viden om bæredygtighed, emissioner og klimadata.</p>
+            </div>
+            <div class="col-md-4">
+                <h3>Hurtige Links</h3>
+                <ul class="footer-links">
+                    <li><a href="{{ url_for('index') }}">Forside</a></li>
+                    <li><a href="{{ url_for('emissions_sustainability') }}">Emissioner & Bæredygtighed</a></li>
+                    <li><a href="{{ url_for('okologi') }}">Økologi</a></li>
+                    <li><a href="{{ url_for('calculator') }}">CO2 Beregner</a></li>
+                    <li><a href="{{ url_for('contact') }}">Kontakt</a></li>
+                </ul>
+            </div>
+            <div class="col-md-4">
+                <h3>Kontakt</h3>
+                <p>Email: info@vidensbank.dk<br>
+                Telefon: +45 12 34 56 78</p>
+            </div>
+        </div>
+        <div class="footer-bottom">
+            <p>&copy; {{ current_year }} Vidensbank. Alle rettigheder forbeholdes.</p>
+        </div>
+    </div>
+</footer>

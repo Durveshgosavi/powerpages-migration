@@ -100,31 +100,31 @@ def climate_data():
 # Økologi routes
 @app.route('/okologi')
 def okologi():
-    return render_template('okologi.html')
+    return render_template('okologi/index.html')
 
 @app.route('/okologi/hvad-er')
 def okologi_hvad_er():
-    return render_template('okologi_hvad_er.html')
+    return render_template('okologi/okologi_hvad_er.html')
 
 @app.route('/okologi/regulering')
 def okologi_regulering():
-    return render_template('okologi_regulering.html')
+    return render_template('okologi/okologi_regulering.html')
 
 @app.route('/okologi/kantinen')
 def okologi_kantinen():
-    return render_template('okologi_kantinen.html')
+    return render_template('okologi/okologi_kantinen.html')
 
 @app.route('/okologi/fordele')
 def okologi_fordele():
-    return render_template('okologi_fordele.html')
+    return render_template('okologi/okologi_fordele.html')
 
 @app.route('/okologi/nuanceret')
 def okologi_nuanceret():
-    return render_template('okologi_nuanceret.html')
+    return render_template('okologi/okologi_nuanceret.html')
 
 @app.route('/okologi/esg')
 def okologi_esg():
-    return render_template('okologi_esg.html')
+    return render_template('okologi/okologi_esg.html')
 
 # Add more routes for your other pages here
 

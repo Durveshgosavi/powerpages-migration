@@ -1,0 +1,60 @@
+<header class="site-header">
+    <nav class="navbar navbar-expand-lg navbar-light bg-light">
+        <div class="container-fluid">
+            <a class="navbar-brand" href="{{ url_for('index') }}">
+                <img src="{{ url_for('static', filename='images/Logo-sm-64.png') }}" alt="Vidensbank Logo" height="40">
+                Vidensbank
+            </a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav ms-auto">
+                    <li class="nav-item">
+                        <a class="nav-item" href="{{ url_for('index') }}">Forside</a>
+                    </li>
+                    <li class="nav-item dropdown">
+                        <a class="nav-link dropdown-toggle" href="#" id="emissionerDropdown" role="button" data-bs-toggle="dropdown">
+                            Emissioner & Bæredygtighed
+                        </a>
+                        <ul class="dropdown-menu">
+                            <li><a class="dropdown-item" href="{{ url_for('emissions_sustainability') }}">Oversigt</a></li>
+                            <li><a class="dropdown-item" href="{{ url_for('food_emissions') }}">Fødevareemissioner</a></li>
+                            <li><a class="dropdown-item" href="{{ url_for('data_driven_approach') }}">Datadrevet Tilgang</a></li>
+                        </ul>
+                    </li>
+                    <li class="nav-item dropdown">
+                        <a class="nav-link dropdown-toggle" href="#" id="okologiDropdown" role="button" data-bs-toggle="dropdown">
+                            Økologi
+                        </a>
+                        <ul class="dropdown-menu">
+                            <li><a class="dropdown-item" href="{{ url_for('okologi') }}">Oversigt</a></li>
+                            <li><a class="dropdown-item" href="{{ url_for('okologi_hvad_er') }}">Hvad er Økologi?</a></li>
+                            <li><a class="dropdown-item" href="{{ url_for('okologi_regulering') }}">Regulering & Mærker</a></li>
+                            <li><a class="dropdown-item" href="{{ url_for('okologi_kantinen') }}">Økologi i Kantinen</a></li>
+                            <li><a class="dropdown-item" href="{{ url_for('okologi_fordele') }}">Fordele & Overvejelser</a></li>
+                        </ul>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="{{ url_for('calculator') }}">CO2 Beregner</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="{{ url_for('contact') }}">Kontakt</a>
+                    </li>
+                    {% if current_user.is_authenticated %}
+                        <li class="nav-item">
+                            <a class="nav-link" href="{{ url_for('dashboard') }}">Dashboard</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="{{ url_for('logout') }}">Log ud</a>
+                        </li>
+                    {% else %}
+                        <li class="nav-item">
+                            <a class="nav-link" href="{{ url_for('login') }}">Log ind</a>
+                        </li>
+                    {% endif %}
+                </ul>
+            </div>
+        </div>
+    </nav>
+</header>
