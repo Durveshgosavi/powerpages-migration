@@ -4,7 +4,25 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="description" content="Vidensbank - Din kilde til viden om bæredygtighed, klimadata og fødevareinnovation">
+    <meta name="keywords" content="bæredygtighed, klima, CO2, økologi, fødevarer, emissioner">
+    <meta name="author" content="Cheval Blanc Kantiner">
+    <meta name="theme-color" content="#84d189">
+    
+    <!-- Open Graph / Facebook -->
+    <meta property="og:type" content="website">
+    <meta property="og:title" content="{% block og_title %}Vidensbank - Bæredygtighed & Klima{% endblock %}">
+    <meta property="og:description" content="Din kilde til viden om bæredygtighed, klimadata og fødevareinnovation">
+    
+    <!-- Twitter -->
+    <meta property="twitter:card" content="summary_large_image">
+    <meta property="twitter:title" content="{% block twitter_title %}Vidensbank - Bæredygtighed & Klima{% endblock %}">
+    
     <title>{% block title %}Vidensbank - Bæredygtighed & Klima{% endblock %}</title>
+    
+    <!-- Preconnect to external domains -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link rel="preconnect" href="https://fonts.cdnfonts.com" crossorigin>
     
     <!-- Bootstrap CSS -->
     <link rel="stylesheet" href="{{ url_for('static', filename='css/bootstrap.min.css') }}">
@@ -13,24 +31,33 @@
     <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
     
     {% block extra_css %}{% endblock %}
+    
+    <!-- Favicon -->
+    <link rel="icon" type="image/x-icon" href="{{ url_for('static', filename='images/favicon.ico') }}">
 </head>
 <body>
+    <!-- Skip to main content for accessibility -->
+    <a href="#main-content" class="skip-link">Spring til hovedindhold</a>
+    
     <!-- Header/Navigation -->
     {% include 'partials/header.html' %}
 
     <!-- Flash Messages -->
     {% with messages = get_flashed_messages(with_categories=true) %}
         {% if messages %}
-            <div class="flash-messages">
+            <div class="flash-messages" role="alert">
                 {% for category, message in messages %}
-                    <div class="alert alert-{{ category }}">{{ message }}</div>
+                    <div class="alert alert-{{ category }} alert-dismissible fade show" role="alert">
+                        {{ message }}
+                        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Luk"></button>
+                    </div>
                 {% endfor %}
             </div>
         {% endif %}
     {% endwith %}
 
     <!-- Main Content -->
-    <main id="main-content">
+    <main id="main-content" role="main">
         {% block content %}{% endblock %}
     </main>
 
@@ -38,7 +65,7 @@
     {% include 'partials/footer.html' %}
 
     <!-- JavaScript -->
-    <script src="{{ url_for('static', filename='js/main.js') }}"></script>
+    <script src="{{ url_for('static', filename='js/main.js') }}" defer></script>
     {% block extra_js %}{% endblock %}
 </body>
 </html>

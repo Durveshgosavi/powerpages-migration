@@ -1,0 +1,28 @@
+{
+  "name": "vidensbank-flask",
+  "version": "1.0.0",
+  "description": "Flask web application for sustainability, climate data, and food innovation",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/Durveshgosavi/powerpages-migration.git"
+  },
+  "keywords": [
+    "flask",
+    "sustainability",
+    "climate",
+    "emissions",
+    "co2-calculator",
+    "organic-food",
+    "danish",
+    "heroku"
+  ],
+  "author": "Cheval Blanc Kantiner",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/Durveshgosavi/powerpages-migration/issues"
+  },
+  "homepage": "https://github.com/Durveshgosavi/powerpages-migration#readme",
+  "engines": {
+    "python": "3.12.x"
+  }
+}

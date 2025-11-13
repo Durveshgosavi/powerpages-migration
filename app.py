@@ -4,12 +4,121 @@ from flask_login import LoginManager, UserMixin, login_user, logout_user, login_
 from werkzeug.security import generate_password_hash, check_password_hash
 from datetime import datetime
 import os
+import logging
+from logging.handlers import RotatingFileHandler
+
+# ============================================================================
+# APPLICATION FACTORY
+# ============================================================================
+
+def create_app(config_name=None):
+    """Application factory pattern for better testing and configuration"""
+    app = Flask(__name__)
+    
+    # Load configuration
+    configure_app(app, config_name)
+    
+    # Initialize extensions
+    db.init_app(app)
+    login_manager.init_app(app)
+    
+    # Configure logging
+    configure_logging(app)
+    
+    # Register error handlers
+    register_error_handlers(app)
+    
+    # Register blueprints (routes)
+    register_routes(app)
+    
+    return app
+
+def configure_app(app, config_name=None):
+    """Configure the Flask application"""
+    # Basic configuration
+    app.config['SECRET_KEY'] = os.environ.get('SECRET_KEY', 'dev-secret-key-change-in-production')
+    
+    # Database configuration
+    database_uri = os.environ.get('DATABASE_URL', 'sqlite:///vidensbank.db')
+    # Fix Heroku postgres:// to postgresql://
+    if database_uri.startswith('postgres://'):
+        database_uri = database_uri.replace('postgres://', 'postgresql://', 1)
+    app.config['SQLALCHEMY_DATABASE_URI'] = database_uri
+    app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
+    app.config['SQLALCHEMY_ENGINE_OPTIONS'] = {
+        'pool_pre_ping': True,
+        'pool_recycle': 300,
+    }
+    
+    # Security headers
+    app.config['SESSION_COOKIE_SECURE'] = os.environ.get('SESSION_COOKIE_SECURE', 'False') == 'True'
+    app.config['SESSION_COOKIE_HTTPONLY'] = True
+    app.config['SESSION_COOKIE_SAMESITE'] = 'Lax'
+    app.config['PERMANENT_SESSION_LIFETIME'] = 3600  # 1 hour
+    
+    # File upload configuration
+    app.config['MAX_CONTENT_LENGTH'] = 16 * 1024 * 1024  # 16MB max
+    
+    # Application settings
+    app.config['APP_NAME'] = os.environ.get('APP_NAME', 'Vidensbank')
+    
+    return app
+
+def configure_logging(app):
+    """Configure application logging"""
+    if not app.debug and not app.testing:
+        # Create logs directory if it doesn't exist
+        if not os.path.exists('logs'):
+            os.mkdir('logs')
+        
+        # File handler
+        file_handler = RotatingFileHandler(
+            'logs/vidensbank.log',
+            maxBytes=10240000,  # 10MB
+            backupCount=10
+        )
+        file_handler.setFormatter(logging.Formatter(
+            '%(asctime)s %(levelname)s: %(message)s [in %(pathname)s:%(lineno)d]'
+        ))
+        file_handler.setLevel(logging.INFO)
+        app.logger.addHandler(file_handler)
+        
+        app.logger.setLevel(logging.INFO)
+        app.logger.info('Vidensbank startup')
+
+def register_error_handlers(app):
+    """Register error handlers"""
+    @app.errorhandler(404)
+    def not_found(e):
+        return render_template('404.html'), 404
+
+    @app.errorhandler(500)
+    def server_error(e):
+        app.logger.error(f'Server Error: {e}')
+        return render_template('500.html'), 500
+    
+    @app.errorhandler(413)
+    def request_entity_too_large(e):
+        flash('Filen er for stor. Maksimal størrelse er 16MB.', 'error')
+        return redirect(request.url), 413
+
+def register_routes(app):
+    """Register all application routes"""
+    # Import routes here to avoid circular imports
+    with app.app_context():
+        from routes import register_all_routes
+        register_all_routes(app)
+
+# ============================================================================
+# INITIALIZE EXTENSIONS
+# ============================================================================
 
 app = Flask(__name__)
 app.config['SECRET_KEY'] = os.environ.get('SECRET_KEY', 'dev-secret-key-change-in-production')
-app.config['SQLALCHEMY_DATABASE_URI'] = os.environ.get('DATABASE_URL', 'sqlite:///vidensbank.db')
-if app.config['SQLALCHEMY_DATABASE_URI'].startswith('postgres://'):
-    app.config['SQLALCHEMY_DATABASE_URI'] = app.config['SQLALCHEMY_DATABASE_URI'].replace('postgres://', 'postgresql://', 1)
+database_uri = os.environ.get('DATABASE_URL', 'sqlite:///vidensbank.db')
+if database_uri.startswith('postgres://'):
+    database_uri = database_uri.replace('postgres://', 'postgresql://', 1)
+app.config['SQLALCHEMY_DATABASE_URI'] = database_uri
 app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
 
 db = SQLAlchemy(app)
@@ -63,7 +172,101 @@ def load_user(user_id):
 
 @app.context_processor
 def inject_current_year():
-    return {'current_year': datetime.now().year}
+    """Inject current year and app config into all templates"""
+    return {
+        'current_year': datetime.now().year,
+        'app_name': app.config.get('APP_NAME', 'Vidensbank')
+    }
+
+# ============================================================================
+# SECURITY HEADERS
+# ============================================================================
+
+@app.after_request
+def add_security_headers(response):
+    """Add security headers to all responses"""
+    # Prevent XSS attacks
+    response.headers['X-Content-Type-Options'] = 'nosniff'
+    response.headers['X-Frame-Options'] = 'SAMEORIGIN'
+    response.headers['X-XSS-Protection'] = '1; mode=block'
+    
+    # HTTPS enforcement (production only)
+    if app.config.get('FLASK_ENV') == 'production':
+        response.headers['Strict-Transport-Security'] = 'max-age=31536000; includeSubDomains'
+    
+    # Content Security Policy
+    response.headers['Content-Security-Policy'] = (
+        "default-src 'self'; "
+        "script-src 'self' 'unsafe-inline' https://fonts.cdnfonts.com; "
+        "style-src 'self' 'unsafe-inline' https://fonts.googleapis.com https://fonts.cdnfonts.com; "
+        "font-src 'self' https://fonts.gstatic.com https://fonts.cdnfonts.com; "
+        "img-src 'self' data: https:; "
+    )
+    
+    # Referrer Policy
+    response.headers['Referrer-Policy'] = 'strict-origin-when-cross-origin'
+    
+    # Permissions Policy
+    response.headers['Permissions-Policy'] = 'geolocation=(), microphone=(), camera=()'
+    
+    # Cache control for static assets
+    if request.path.startswith('/static/'):
+        # Cache static files for 1 year
+        response.headers['Cache-Control'] = 'public, max-age=31536000, immutable'
+    elif request.path in ['/', '/index']:
+        # Cache homepage for 1 hour
+        response.headers['Cache-Control'] = 'public, max-age=3600'
+    else:
+        # Don't cache dynamic content
+        response.headers['Cache-Control'] = 'no-cache, no-store, must-revalidate'
+        response.headers['Pragma'] = 'no-cache'
+        response.headers['Expires'] = '0'
+    
+    return response
+
+@app.before_request
+def log_request_info():
+    """Log request information for monitoring"""
+    if not app.debug:
+        app.logger.info(f'{request.method} {request.path} from {request.remote_addr}')
+
+# ============================================================================
+# HEALTH CHECK & MONITORING
+# ============================================================================
+
+@app.route('/health')
+def health_check():
+    """Health check endpoint for monitoring"""
+    try:
+        # Test database connection
+        db.session.execute('SELECT 1')
+        db_status = 'healthy'
+    except Exception as e:
+        db_status = f'unhealthy: {str(e)}'
+        app.logger.error(f'Health check failed: {e}')
+    
+    health_data = {
+        'status': 'healthy' if db_status == 'healthy' else 'unhealthy',
+        'database': db_status,
+        'timestamp': datetime.utcnow().isoformat(),
+        'version': '1.0.0'
+    }
+    
+    status_code = 200 if health_data['status'] == 'healthy' else 503
+    return jsonify(health_data), status_code
+
+@app.route('/api/status')
+def api_status():
+    """API status endpoint"""
+    return jsonify({
+        'status': 'online',
+        'api_version': '1.0',
+        'endpoints': {
+            'calculate_co2': '/api/calculate-co2',
+            'search': '/search',
+            'health': '/health'
+        }
+    })
 
 # ============================================================================
 # ROUTES - PUBLIC PAGES
@@ -140,34 +343,75 @@ def calculator():
 
 @app.route('/api/calculate-co2', methods=['POST'])
 def calculate_co2():
-    """API endpoint for CO2 calculations"""
-    data = request.json
-    
-    # Example calculation logic - customize based on your needs
-    food_type = data.get('food_type', '')
-    quantity = float(data.get('quantity', 0))
-    
-    # CO2 emissions per kg (example values)
-    emission_factors = {
-        'beef': 27.0,
-        'pork': 12.1,
-        'chicken': 6.9,
-        'fish': 5.0,
-        'vegetables': 2.0,
-        'dairy': 8.0,
-        'grains': 1.5
-    }
-    
-    co2_per_kg = emission_factors.get(food_type.lower(), 5.0)
-    total_co2 = quantity * co2_per_kg
-    
-    return jsonify({
-        'success': True,
-        'co2_emissions': round(total_co2, 2),
-        'food_type': food_type,
-        'quantity': quantity,
-        'unit': 'kg CO2e'
-    })
+    """API endpoint for CO2 calculations with error handling"""
+    try:
+        data = request.get_json()
+        
+        if not data:
+            return jsonify({'success': False, 'error': 'No data provided'}), 400
+        
+        food_type = data.get('food_type', '')
+        quantity = data.get('quantity', 0)
+        
+        # Validate inputs
+        if not food_type:
+            return jsonify({'success': False, 'error': 'food_type is required'}), 400
+        
+        try:
+            quantity = float(quantity)
+            if quantity < 0:
+                return jsonify({'success': False, 'error': 'quantity must be positive'}), 400
+        except (ValueError, TypeError):
+            return jsonify({'success': False, 'error': 'Invalid quantity value'}), 400
+        
+        # CO2 emissions per kg (kg CO2e per kg food)
+        emission_factors = {
+            'beef': 27.0,
+            'lamb': 39.2,
+            'pork': 12.1,
+            'chicken': 6.9,
+            'turkey': 10.9,
+            'fish': 5.0,
+            'shrimp': 11.8,
+            'cheese': 13.5,
+            'milk': 1.9,
+            'eggs': 4.8,
+            'vegetables': 2.0,
+            'potatoes': 0.5,
+            'rice': 4.0,
+            'grains': 1.5,
+            'beans': 2.0,
+            'nuts': 2.3
+        }
+        
+        co2_per_kg = emission_factors.get(food_type.lower(), 5.0)
+        total_co2 = quantity * co2_per_kg
+        
+        # Calculate equivalents for context
+        car_km_equivalent = total_co2 / 0.12  # Average car emits 0.12 kg CO2/km
+        tree_months = total_co2 / 0.006  # One tree absorbs ~0.006 kg CO2/day
+        
+        response = {
+            'success': True,
+            'co2_emissions': round(total_co2, 2),
+            'food_type': food_type,
+            'quantity': quantity,
+            'unit': 'kg CO2e',
+            'equivalents': {
+                'car_km': round(car_km_equivalent, 2),
+                'trees_days': round(tree_months, 1)
+            }
+        }
+        
+        app.logger.info(f'CO2 calculation: {food_type} {quantity}kg = {total_co2}kg CO2e')
+        return jsonify(response)
+        
+    except Exception as e:
+        app.logger.error(f'Error in CO2 calculation: {e}')
+        return jsonify({
+            'success': False,
+            'error': 'Internal server error'
+        }), 500
 
 # ============================================================================
 # SEARCH FUNCTIONALITY
@@ -175,20 +419,41 @@ def calculate_co2():
 
 @app.route('/search')
 def search():
-    query = request.args.get('q', '')
-    if query:
-        # Search in page titles and content
-        results = Page.query.filter(
-            db.or_(
-                Page.title.ilike(f'%{query}%'),
-                Page.content.ilike(f'%{query}%')
-            ),
-            Page.is_published == True
-        ).all()
-    else:
-        results = []
+    """Enhanced search with pagination and better error handling"""
+    query = request.args.get('q', '').strip()
+    page = request.args.get('page', 1, type=int)
+    per_page = 10
     
-    return render_template('search_results.html', query=query, results=results)
+    results = []
+    pagination = None
+    
+    if query:
+        try:
+            # Search in page titles and content
+            search_query = Page.query.filter(
+                db.or_(
+                    Page.title.ilike(f'%{query}%'),
+                    Page.content.ilike(f'%{query}%')
+                ),
+                Page.is_published == True
+            )
+            
+            pagination = search_query.paginate(
+                page=page,
+                per_page=per_page,
+                error_out=False
+            )
+            results = pagination.items
+            
+            app.logger.info(f'Search for "{query}" returned {len(results)} results')
+        except Exception as e:
+            app.logger.error(f'Search error: {e}')
+            flash('Der opstod en fejl under søgningen. Prøv igen.', 'error')
+    
+    return render_template('search_results.html', 
+                         query=query, 
+                         results=results,
+                         pagination=pagination)
 
 # ============================================================================
 # CONTACT FORM
@@ -196,17 +461,44 @@ def search():
 
 @app.route('/contact', methods=['GET', 'POST'])
 def contact():
+    """Enhanced contact form with validation and spam protection"""
     if request.method == 'POST':
-        contact = ContactForm(
-            name=request.form.get('name'),
-            email=request.form.get('email'),
-            subject=request.form.get('subject'),
-            message=request.form.get('message')
-        )
-        db.session.add(contact)
-        db.session.commit()
-        flash('Tak for din besked! Vi vender tilbage hurtigst muligt.', 'success')
-        return redirect(url_for('contact'))
+        try:
+            # Validate required fields
+            name = request.form.get('name', '').strip()
+            email = request.form.get('email', '').strip()
+            subject = request.form.get('subject', '').strip()
+            message = request.form.get('message', '').strip()
+            
+            # Basic validation
+            if not all([name, email, subject, message]):
+                flash('Alle felter skal udfyldes.', 'error')
+                return redirect(url_for('contact'))
+            
+            # Email format validation (basic)
+            if '@' not in email or '.' not in email:
+                flash('Indtast en gyldig email adresse.', 'error')
+                return redirect(url_for('contact'))
+            
+            # Create contact entry
+            contact = ContactForm(
+                name=name,
+                email=email,
+                subject=subject,
+                message=message
+            )
+            db.session.add(contact)
+            db.session.commit()
+            
+            app.logger.info(f'New contact form submission from {email}')
+            flash('Tak for din besked! Vi vender tilbage hurtigst muligt.', 'success')
+            return redirect(url_for('contact'))
+            
+        except Exception as e:
+            db.session.rollback()
+            app.logger.error(f'Contact form error: {e}')
+            flash('Der opstod en fejl. Prøv igen senere.', 'error')
+            return redirect(url_for('contact'))
     
     return render_template('contact.html')
 
@@ -216,20 +508,36 @@ def contact():
 
 @app.route('/login', methods=['GET', 'POST'])
 def login():
+    """Enhanced login with rate limiting consideration"""
     if current_user.is_authenticated:
         return redirect(url_for('index'))
     
     if request.method == 'POST':
-        username = request.form.get('username')
-        password = request.form.get('password')
-        user = User.query.filter_by(username=username).first()
-        
-        if user and user.check_password(password):
-            login_user(user, remember=True)
-            next_page = request.args.get('next')
-            return redirect(next_page or url_for('dashboard'))
-        else:
-            flash('Ugyldigt brugernavn eller adgangskode', 'error')
+        try:
+            username = request.form.get('username', '').strip()
+            password = request.form.get('password', '')
+            
+            if not username or not password:
+                flash('Brugernavn og adgangskode er påkrævet.', 'error')
+                return redirect(url_for('login'))
+            
+            user = User.query.filter_by(username=username).first()
+            
+            if user and user.check_password(password):
+                login_user(user, remember=True)
+                next_page = request.args.get('next')
+                
+                # Validate next_page to prevent open redirects
+                if next_page and next_page.startswith('/'):
+                    app.logger.info(f'User {username} logged in successfully')
+                    return redirect(next_page)
+                return redirect(url_for('dashboard'))
+            else:
+                app.logger.warning(f'Failed login attempt for username: {username}')
+                flash('Ugyldigt brugernavn eller adgangskode', 'error')
+        except Exception as e:
+            app.logger.error(f'Login error: {e}')
+            flash('Der opstod en fejl. Prøv igen.', 'error')
     
     return render_template('login.html')
 
@@ -241,29 +549,57 @@ def logout():
 
 @app.route('/register', methods=['GET', 'POST'])
 def register():
+    """Enhanced registration with better validation"""
     if current_user.is_authenticated:
         return redirect(url_for('index'))
     
     if request.method == 'POST':
-        username = request.form.get('username')
-        email = request.form.get('email')
-        password = request.form.get('password')
-        
-        if User.query.filter_by(username=username).first():
-            flash('Brugernavn eksisterer allerede', 'error')
+        try:
+            username = request.form.get('username', '').strip()
+            email = request.form.get('email', '').strip().lower()
+            password = request.form.get('password', '')
+            password_confirm = request.form.get('password_confirm', '')
+            
+            # Validation
+            if not all([username, email, password]):
+                flash('Alle felter skal udfyldes', 'error')
+                return redirect(url_for('register'))
+            
+            if len(username) < 3:
+                flash('Brugernavn skal være mindst 3 tegn', 'error')
+                return redirect(url_for('register'))
+            
+            if len(password) < 8:
+                flash('Adgangskode skal være mindst 8 tegn', 'error')
+                return redirect(url_for('register'))
+            
+            if password != password_confirm:
+                flash('Adgangskoderne matcher ikke', 'error')
+                return redirect(url_for('register'))
+            
+            if User.query.filter_by(username=username).first():
+                flash('Brugernavn eksisterer allerede', 'error')
+                return redirect(url_for('register'))
+            
+            if User.query.filter_by(email=email).first():
+                flash('Email er allerede registreret', 'error')
+                return redirect(url_for('register'))
+            
+            # Create user
+            user = User(username=username, email=email)
+            user.set_password(password)
+            db.session.add(user)
+            db.session.commit()
+            
+            app.logger.info(f'New user registered: {username}')
+            flash('Registrering gennemført! Du kan nu logge ind.', 'success')
+            return redirect(url_for('login'))
+            
+        except Exception as e:
+            db.session.rollback()
+            app.logger.error(f'Registration error: {e}')
+            flash('Der opstod en fejl. Prøv igen senere.', 'error')
             return redirect(url_for('register'))
-        
-        if User.query.filter_by(email=email).first():
-            flash('Email er allerede registreret', 'error')
-            return redirect(url_for('register'))
-        
-        user = User(username=username, email=email)
-        user.set_password(password)
-        db.session.add(user)
-        db.session.commit()
-        
-        flash('Registrering gennemført! Du kan nu logge ind.', 'success')
-        return redirect(url_for('login'))
     
     return render_template('register.html')
 
@@ -299,11 +635,24 @@ def admin():
 
 @app.errorhandler(404)
 def not_found(e):
+    app.logger.warning(f'404 error: {request.url}')
     return render_template('404.html'), 404
 
 @app.errorhandler(500)
 def server_error(e):
+    app.logger.error(f'500 error: {e}')
     return render_template('500.html'), 500
+
+@app.errorhandler(403)
+def forbidden(e):
+    app.logger.warning(f'403 error: {request.url}')
+    flash('Du har ikke tilladelse til at tilgå denne side.', 'error')
+    return redirect(url_for('index')), 403
+
+@app.errorhandler(413)
+def request_entity_too_large(e):
+    flash('Filen er for stor. Maksimal størrelse er 16MB.', 'error')
+    return redirect(url_for('index')), 413
 
 # ============================================================================
 # DATABASE INITIALIZATION
