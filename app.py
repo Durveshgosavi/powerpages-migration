@@ -71,41 +71,43 @@ def inject_current_year():
 
 @app.route('/')
 def index():
-    return render_template('index.html')
+    return render_template('home.html')
 
 @app.route('/emissioner-og-baeredygtighed')
 def emissions_sustainability():
-    return render_template('emissions_sustainability.html')
+    return render_template('emissions/main.html')
 
 @app.route('/emissioner-og-baeredygtighed/fodevare-relaterede-emissioner')
 def food_emissions():
-    return render_template('food_emissions.html')
+    return render_template('emissions/food_emissions.html')
 
 @app.route('/emissioner-og-baeredygtighed/datadrevet-tilgang')
 def data_driven_approach():
-    return render_template('data_driven_approach.html')
+    return render_template('emissions/data_driven_approach.html')
 
 @app.route('/emissioner-og-baeredygtighed/branchepraestation')
 def market_analysis():
-    return render_template('market_analysis.html')
+    return render_template('emissions/market_analysis.html')
 
 @app.route('/emissioner-og-baeredygtighed/politisk-landskab')
 def political_landscape():
-    return render_template('political_landscape.html')
+    return render_template('emissions/political_landscape.html')
 
 @app.route('/emissioner-og-baeredygtighed/klimadata')
 def climate_data():
-    return render_template('climate_data.html')
+    return render_template('emissions/climate_data.html')
 
-# Add more routes for your other pages here
+@app.route('/oekologi')
+def ecology():
+    return render_template('ecology/main.html')
 
 # ============================================================================
 # CO2 CALCULATOR
 # ============================================================================
 
-@app.route('/calculator')
+@app.route('/klimapotentiale')
 def calculator():
-    return render_template('calculator.html')
+    return render_template('climate_potential.html')
 
 @app.route('/api/calculate-co2', methods=['POST'])
 def calculate_co2():
