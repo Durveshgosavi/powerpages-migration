@@ -1,9 +1,71 @@
 {% extends "base.html" %}
+{% block title %}Politisk Landskab - Vidensbank{% endblock %}
 {% block content %}
-<section class="section">
-  <div class="container">
-    <h1 class="section-title">Side under opbygning</h1>
-    <p style="text-align: center;">Denne side er under udvikling. Kom snart tilbage!</p>
-  </div>
+<header style="position: relative; min-height: 60vh; display: flex; align-items: center; justify-content: center; text-align: center; color: #ffffff; background-image: url('https://images.unsplash.com/photo-1529107386315-e1a2ed48a620'); background-size: cover; background-position: center;">
+    <div style="position: absolute; inset: 0; background: rgba(0, 0, 0, 0.5);"></div>
+    <div style="position: relative; z-index: 1; padding: 2rem;">
+        <h1 style="font-family: 'Times New Roman', serif; font-size: 3.5rem; font-weight: normal; line-height: 1.2; text-transform: uppercase; margin: 0; text-shadow: 2px 2px 4px rgba(0,0,0,0.3);">Politisk Landskab</h1>
+        <p style="font-size: 1.2rem; margin-top: 20px; max-width: 700px; margin-left: auto; margin-right: auto; text-shadow: 1px 1px 3px rgba(0,0,0,0.3);">Danmarks klimapolitik og fødevaresektorens rolle i den grønne omstilling.</p>
+    </div>
+</header>
+<section class="py-5 bg-white">
+    <div class="container">
+        <h2 style="font-family: 'Times New Roman', serif; font-size: 2.5rem; font-weight: 700; color: #333; text-align: center; margin-bottom: 1rem;">Klimamål og Fødevarer</h2>
+        <div style="width: 80px; height: 8px; background-color: #5cb85c; margin: 1rem auto 3rem; border-radius: 4px;"></div>
+        <p style="text-align: center; font-size: 1.1rem; color: #555; max-width: 800px; margin: 0 auto 3rem; line-height: 1.6;">I 2021 blev klimahensyn integreret i De Officielle Kostråd, hvilket markerer et vigtigt skridt i den danske klimapolitik.</p>
+        <div class="row g-4">
+            <div class="col-md-6">
+                <div style="background: #f8f9fa; padding: 2rem; border-radius: 12px; border-left: 4px solid #5cb85c;">
+                    <h3 style="font-size: 1.5rem; font-weight: 700; color: #333; margin-bottom: 1rem;">Klimamål 2030</h3>
+                    <p style="color: #555; line-height: 1.6; margin-bottom: 1rem;">Danmark har forpligtet sig til at reducere drivhusgasemissioner med 70% i forhold til 1990-niveauet inden 2030.</p>
+                    <ul style="color: #555; line-height: 1.8;">
+                        <li>Fødevaresektoren spiller en central rolle</li>
+                        <li>Fokus på plantebaserede kostvaner</li>
+                        <li>Reduktion af kødforbruget anbefales</li>
+                    </ul>
+                </div>
+            </div>
+            <div class="col-md-6">
+                <div style="background: #f8f9fa; padding: 2rem; border-radius: 12px; border-left: 4px solid #f39c12;">
+                    <h3 style="font-size: 1.5rem; font-weight: 700; color: #333; margin-bottom: 1rem;">Nye Kostråd</h3>
+                    <p style="color: #555; line-height: 1.6; margin-bottom: 1rem;">De nye kostråd integrerer klimahensyn og anbefaler:</p>
+                    <ul style="color: #555; line-height: 1.8;">
+                        <li>Mere grønt og mindre kød</li>
+                        <li>Lokale og sæsonbetonede råvarer</li>
+                        <li>Reduktion af madspild</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+<section class="py-5" style="background-color: #f5f8fa;">
+    <div class="container">
+        <h2 style="font-family: 'Times New Roman', serif; font-size: 2.5rem; font-weight: 700; color: #333; text-align: center; margin-bottom: 1rem;">Kødforbrug i Danmark</h2>
+        <div style="width: 80px; height: 8px; background-color: #e74c3c; margin: 1rem auto 3rem; border-radius: 4px;"></div>
+        <div class="row align-items-center">
+            <div class="col-lg-6">
+                <div style="background: #fff; padding: 2.5rem; border-radius: 12px; box-shadow: 0 4px 15px rgba(0,0,0,0.08);">
+                    <h3 style="font-size: 1.8rem; font-weight: 700; color: #333; margin-bottom: 1rem;">Fakta om Kødforbruget</h3>
+                    <div style="margin-bottom: 2rem;">
+                        <div style="font-size: 3rem; font-weight: 700; color: #e74c3c; margin-bottom: 0.5rem;">950g</div>
+                        <div style="font-size: 1.1rem; color: #555;">Gennemsnitligt kødforbrug pr. uge</div>
+                    </div>
+                    <p style="color: #555; line-height: 1.6;">Dette er næsten 3 gange det anbefalede niveau på 350g pr. uge. Reduktion af kødforbruget er derfor en vigtig del af Danmarks klimaindsats.</p>
+                </div>
+            </div>
+            <div class="col-lg-6">
+                <img src="https://images.unsplash.com/photo-1651478636948-83c82f44220f" alt="Kødforbrug" class="img-fluid rounded shadow" style="opacity: 0.8;">
+            </div>
+        </div>
+    </div>
+</section>
+<section class="py-5 bg-white">
+    <div class="container text-center">
+        <h2 style="font-size: 2.2rem; font-weight: 700; color: #333; margin-bottom: 1rem;">Vil du vide mere?</h2>
+        <p style="font-size: 1.1rem; color: #555; margin-bottom: 2rem; max-width: 600px; margin-left: auto; margin-right: auto;">Udforsk vores klimadata og se hvordan politikken påvirker fødevaresektoren.</p>
+        <a href="{{ url_for('climate_data') }}" class="btn btn-success btn-lg me-3">Se Klimadata</a>
+        <a href="{{ url_for('food_emissions') }}" class="btn btn-outline-success btn-lg">Læs om Emissioner</a>
+    </div>
 </section>
 {% endblock %}

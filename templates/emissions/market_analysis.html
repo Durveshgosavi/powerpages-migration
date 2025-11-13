@@ -1,9 +1,96 @@
 {% extends "base.html" %}
+{% block title %}Branchepræstation - Markedsdata{% endblock %}
 {% block content %}
-<section class="section">
-  <div class="container">
-    <h1 class="section-title">Side under opbygning</h1>
-    <p style="text-align: center;">Denne side er under udvikling. Kom snart tilbage!</p>
-  </div>
+<header style="position: relative; min-height: 60vh; display: flex; align-items: center; justify-content: center; text-align: center; color: #ffffff; background-image: url('https://images.unsplash.com/photo-1512621776951-a57141f2eefd'); background-size: cover; background-position: center;">
+    <div style="position: absolute; inset: 0; background: rgba(0,0,0,0.4);"></div>
+    <div style="position: relative; z-index: 1; padding: 2rem;">
+        <h1 style="font-family: 'Times New Roman', serif; font-size: 3.5rem; font-weight: normal; line-height: 1.1; text-transform: uppercase; margin: 0; text-shadow: 2px 2px 4px rgba(0,0,0,0.3);">Branchepræstationsdata</h1>
+        <p style="font-size: 1.2rem; margin-top: 20px; max-width: 700px; margin-left: auto; margin-right: auto;">Indsigt i den danske cateringsektors klimaindsats, markedstendenser og bedste praksis.</p>
+    </div>
+</header>
+<section class="py-5">
+    <div class="container">
+        <h2 style="font-family: 'Times New Roman', serif; font-size: 2.5rem; font-weight: 700; color: #333; text-align: center; margin-bottom: 1rem;">Markedsoversigt 2024-2028</h2>
+        <div style="width: 80px; height: 8px; background-color: #a0d7a5; margin: 1rem auto 3rem; border-radius: 4px;"></div>
+        <p style="text-align: center; font-size: 1.1rem; color: #555; margin-bottom: 3rem;">Vigtige KPI'er for den danske fødevare- og cateringsektor.</p>
+        <div class="row g-4">
+            <div class="col-md-4">
+                <div style="background: #fff; padding: 30px; border-radius: 12px; box-shadow: 0 8px 25px rgba(0,0,0,0.08); text-align: center;">
+                    <div style="font-size: 0.85rem; text-transform: uppercase; letter-spacing: 1px; color: #888; font-weight: 600; margin-bottom: 10px;">Markedsværdi (2023)</div>
+                    <div style="font-family: 'Times New Roman', serif; font-size: 3rem; color: #a0d7a5; font-weight: 700; margin-bottom: 10px;">3,36</div>
+                    <p style="font-size: 1rem; color: #555; margin: 0;">Mia. DKK</p>
+                    <small style="color: #999; font-size: 0.85rem; display: block; margin-top: 10px;">ReportLinker: Event Catering Sector</small>
+                </div>
+            </div>
+            <div class="col-md-4">
+                <div style="background: #fff; padding: 30px; border-radius: 12px; box-shadow: 0 8px 25px rgba(0,0,0,0.08); text-align: center;">
+                    <div style="font-size: 0.85rem; text-transform: uppercase; letter-spacing: 1px; color: #888; font-weight: 600; margin-bottom: 10px;">Forventet Værdi (2028)</div>
+                    <div style="font-family: 'Times New Roman', serif; font-size: 3rem; color: #ffc857; font-weight: 700; margin-bottom: 10px;">3,77</div>
+                    <p style="font-size: 1rem; color: #555; margin: 0;">Mia. DKK</p>
+                    <small style="color: #999; font-size: 0.85rem; display: block; margin-top: 10px;">Projected Growth</small>
+                </div>
+            </div>
+            <div class="col-md-4">
+                <div style="background: #fff; padding: 30px; border-radius: 12px; box-shadow: 0 8px 25px rgba(0,0,0,0.08); text-align: center;">
+                    <div style="font-size: 0.85rem; text-transform: uppercase; letter-spacing: 1px; color: #888; font-weight: 600; margin-bottom: 10px;">Årlig Vækstrate (CAGR)</div>
+                    <div style="font-family: 'Times New Roman', serif; font-size: 3rem; color: #f4a261; font-weight: 700; margin-bottom: 10px;">2,4%</div>
+                    <p style="font-size: 1rem; color: #555; margin: 0;">2024-2028</p>
+                    <small style="color: #999; font-size: 0.85rem; display: block; margin-top: 10px;">ReportLinker Analysis</small>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+<section class="py-5" style="background-color: #f5f8fa;">
+    <div class="container">
+        <h2 style="font-family: 'Times New Roman', serif; font-size: 2.5rem; font-weight: 700; color: #333; text-align: center; margin-bottom: 1rem;">Bedste Praksis i Branchen</h2>
+        <div style="width: 80px; height: 8px; background-color: #a0d7a5; margin: 1rem auto 3rem; border-radius: 4px;"></div>
+        <p style="text-align: center; font-size: 1.1rem; color: #555; margin-bottom: 3rem;">Eksempler på hvordan ledende virksomheder implementerer klimamål i deres drift.</p>
+        <div class="row g-4">
+            <div class="col-md-6">
+                <div style="background: #fff; border-radius: 12px; padding: 40px; box-shadow: 0 8px 25px rgba(0,0,0,0.08);">
+                    <div style="display: inline-block; background-color: #d0ebd2; border-radius: 8px; padding: 12px 20px; margin-bottom: 20px;">
+                        <span style="font-size: 0.9rem; font-weight: 700; color: #2d5f33; text-transform: uppercase;">Virksomhed A</span>
+                    </div>
+                    <h3 style="font-size: 1.5rem; font-weight: 700; color: #333; margin: 0 0 20px;">Madspild & Ressourceoptimering</h3>
+                    <div style="margin-bottom: 25px;">
+                        <div style="display: flex; justify-content: space-between; margin-bottom: 8px;">
+                            <span style="font-weight: 600; color: #555;">Reduktion i Madspild</span>
+                            <span style="font-weight: 700; color: #a0d7a5;">30%</span>
+                        </div>
+                        <div style="background-color: #eee; height: 8px; border-radius: 10px;">
+                            <div style="background-color: #a0d7a5; height: 100%; width: 30%; border-radius: 10px;"></div>
+                        </div>
+                    </div>
+                    <p style="font-size: 0.95rem; color: #666; line-height: 1.6;">Fokus på præcis portionering, lokale ingredienser, og digitaliseret indkøbsstyring.</p>
+                </div>
+            </div>
+            <div class="col-md-6">
+                <div style="background: #fff; border-radius: 12px; padding: 40px; box-shadow: 0 8px 25px rgba(0,0,0,0.08);">
+                    <div style="display: inline-block; background-color: #ffecd1; border-radius: 8px; padding: 12px 20px; margin-bottom: 20px;">
+                        <span style="font-size: 0.9rem; font-weight: 700; color: #d97706; text-transform: uppercase;">Virksomhed B</span>
+                    </div>
+                    <h3 style="font-size: 1.5rem; font-weight: 700; color: #333; margin: 0 0 20px;">Plantebaserede Menuer</h3>
+                    <div style="margin-bottom: 25px;">
+                        <div style="display: flex; justify-content: space-between; margin-bottom: 8px;">
+                            <span style="font-weight: 600; color: #555;">CO₂-Reduktion</span>
+                            <span style="font-weight: 700; color: #f4a261;">60%</span>
+                        </div>
+                        <div style="background-color: #eee; height: 8px; border-radius: 10px;">
+                            <div style="background-color: #f4a261; height: 100%; width: 60%; border-radius: 10px;"></div>
+                        </div>
+                    </div>
+                    <p style="font-size: 0.95rem; color: #666; line-height: 1.6;">Udvikling af attraktive plantebaserede menuer med fokus på smag og ernæring.</p>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+<section class="py-5">
+    <div class="container text-center">
+        <h2 style="font-size: 2.2rem; font-weight: 700; color: #333; margin-bottom: 1rem;">Vil du bidrage til den grønne omstilling?</h2>
+        <p style="font-size: 1.1rem; color: #555; margin-bottom: 2rem;">Brug Vidensbanks klimaberegner</p>
+        <a href="{{ url_for('calculator') }}" class="btn btn-success btn-lg">Kantines Klimapotentiale</a>
+    </div>
 </section>
 {% endblock %}
