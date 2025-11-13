@@ -1,0 +1,177 @@
+{% extends "base.html" %}
+
+{% block title %}Økologi i Danmark | Cheval Blanc Kantiner{% endblock %}
+
+{% block extra_css %}
+<link rel="stylesheet" href="{{ url_for('static', filename='css/okologi.css') }}">
+{% endblock %}
+
+{% block content %}
+<!-- Hero Section -->
+<header class="okologi-hero" style="background-image: url('https://images.pexels.com/photos/1656663/pexels-photo-1656663.jpeg');">
+    <div class="okologi-hero-overlay"></div>
+    <div class="okologi-hero-content">
+        <h1>FORSTÅELSE AF ØKOLOGI</h1>
+        <p>En guide til økologiske mærker, fordele og strategier for fremtidens kantiner i Danmark.</p>
+    </div>
+</header>
+
+<!-- Central Emner Section -->
+<section class="okologi-section">
+    <div class="container">
+        <h2 class="okologi-section-title">CENTRALE ØKOLOGI-EMNER</h2>
+        <div class="wavy-underline"></div>
+
+        <div class="grid-3-col">
+            <a href="{{ url_for('okologi_hvad_er') }}" class="premium-card">
+                <img src="https://images.pexels.com/photos/264537/pexels-photo-264537.jpeg" alt="Friske økologiske grøntsager">
+                <div class="premium-card-content">
+                    <h3>Hvad er Økologi?</h3>
+                    <p>Udforsk grundprincipperne og betydningen for miljø og dyrevelfærd.</p>
+                </div>
+            </a>
+
+            <a href="{{ url_for('okologi_regulering') }}" class="premium-card">
+                <img src="https://images.pexels.com/photos/769289/pexels-photo-769289.jpeg" alt="Appetitlig tallerken med mad">
+                <div class="premium-card-content">
+                    <h3>Regulering & Mærker</h3>
+                    <p>Forstå det røde Ø-mærke, EU-logoet og det danske kontrolsystem.</p>
+                </div>
+            </a>
+
+            <a href="{{ url_for('okologi_fordele') }}" class="premium-card">
+                <img src="https://images.pexels.com/photos/376464/pexels-photo-376464.jpeg" alt="Personer der spiser et sundt måltid">
+                <div class="premium-card-content">
+                    <h3>Fordele & Overvejelser</h3>
+                    <p>Dyk ned i fordelene for miljø, sundhed, dyrevelfærd og klima.</p>
+                </div>
+            </a>
+        </div>
+    </div>
+</section>
+
+<!-- Nøgleprincipper Section -->
+<section class="okologi-section okologi-section-bg-white">
+    <div class="container">
+        <h2 class="okologi-section-title">NØGLEPRINCIPPER FOR ØKOLOGI</h2>
+        <div class="wavy-underline"></div>
+
+        <div class="grid-4-col">
+            <div class="kpi-card reveal">
+                <div class="icon">🌱</div>
+                <h3>Ingen Pesticider</h3>
+                <p>Forbud mod syntetiske sprøjtemidler sikrer renere mad og beskytter vores grundvand og natur.</p>
+            </div>
+
+            <div class="kpi-card reveal">
+                <div class="icon">🌾</div>
+                <h3>GMO-fri</h3>
+                <p>Økologiske landmænd må ikke anvende gensplejsede afgrøder eller foder, hvilket garanterer et GMO-frit produkt.</p>
+            </div>
+
+            <div class="kpi-card reveal">
+                <div class="icon">🐄</div>
+                <h3>Høj Dyrevelfærd</h3>
+                <p>Dyrene sikres mere plads, adgang til det fri og mulighed for at udleve deres naturlige instinkter.</p>
+            </div>
+
+            <div class="kpi-card reveal">
+                <div class="icon">🐝</div>
+                <h3>Mere Biodiversitet</h3>
+                <p>Økologiske marker skaber bedre levevilkår for bier, sommerfugle og vilde planter, hvilket styrker økosystemet.</p>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Derfor Økologi Section -->
+<section class="okologi-section okologi-section-bg-light">
+    <div class="container">
+        <h2 class="okologi-section-title">OPSUMMERING: DERFOR ØKOLOGI</h2>
+        <div class="wavy-underline"></div>
+
+        <div class="grid-3-col">
+            <div class="stat-card">
+                <div class="stat-number">13%</div>
+                <div class="stat-label">Verdens højeste økologiske markedsandel</div>
+                <div class="stat-source">Danmark førende globalt</div>
+            </div>
+
+            <div class="stat-card">
+                <div class="stat-number">-76%</div>
+                <div class="stat-label">Færre pesticidrester</div>
+                <div class="stat-source">I økologiske fødevarer</div>
+            </div>
+
+            <div class="stat-card">
+                <div class="stat-number">+30%</div>
+                <div class="stat-label">Højere biodiversitet</div>
+                <div class="stat-source">På økologiske marker</div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Økologi i Kantinen Section -->
+<section class="okologi-section">
+    <div class="container">
+        <h2 class="okologi-section-title">ØKOLOGI I KANTINEN</h2>
+        <p style="text-align: center; max-width: 800px; margin: 1rem auto 4rem; font-size: 1.1rem;">Det Økologiske Spisemærke er en statskontrolleret mærkning, der gør det let at se, hvor stor en andel af en kantines råvarer der er økologiske.</p>
+        <div class="text-center mb-3">
+            <a href="{{ url_for('okologi_kantinen') }}" class="cta-button primary">Læs mere om økologi i kantinen</a>
+        </div>
+
+        <div class="grid-3-col" style="margin-top: 3rem;">
+            <div class="kpi-card">
+                <img src="{{ url_for('static', filename='images/Økologi medal bronze.png') }}" alt="Bronze mærke" style="max-width: 150px; margin: 0 auto 1rem;">
+                <h3>30-60% økologi</h3>
+            </div>
+
+            <div class="kpi-card">
+                <img src="{{ url_for('static', filename='images/økologi medal silverpng.png') }}" alt="Sølv mærke" style="max-width: 150px; margin: 0 auto 1rem;">
+                <h3>60-90% økologi</h3>
+            </div>
+
+            <div class="kpi-card">
+                <img src="{{ url_for('static', filename='images/økologi medal gold.png') }}" alt="Guld mærke" style="max-width: 150px; margin: 0 auto 1rem;">
+                <h3>90-100% økologi</h3>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Danmark som Foregangsland -->
+<section class="okologi-section okologi-section-bg-light">
+    <div class="container">
+        <h2 class="okologi-section-title">DANMARK SOM ØKOLOGISK FOREGANGSLAND</h2>
+
+        <div class="grid-3-col">
+            <div class="kpi-card">
+                <div class="stat-number" style="color: #a0d7a5;">1.</div>
+                <p>Danmark var det første land i verden til at indføre en statskontrolleret økologilov i 1987.</p>
+            </div>
+
+            <div class="kpi-card">
+                <div class="stat-number" style="color: #a0d7a5;">13%</div>
+                <p>Verdens højeste økologiske markedsandel, hvilket viser en enorm forbrugeropbakning.</p>
+            </div>
+
+            <div class="kpi-card">
+                <div class="stat-number" style="color: #a0d7a5;">90%</div>
+                <p>Det ambitiøse mål for økologi i alle offentlige måltider i Københavns Kommune.</p>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- CTA Section -->
+<section class="okologi-section okologi-section-bg-green">
+    <div class="container">
+        <div class="cta-block" style="background: transparent;">
+            <h2>ER I KLAR TIL EN GRØNNERE FREMTID?</h2>
+            <p>At implementere økologi i kantinen er en rejse, der skaber værdi for både jeres medarbejdere, jeres virksomhed og for verden omkring jer. Hos Cheval Blanc har vi ekspertisen og passionen til at hjælpe jer med at tage det næste skridt.</p>
+            <a href="{{ url_for('contact') }}" class="cta-button">KONTAKT OS FOR EN BÆREDYGTIG LØSNING</a>
+        </div>
+    </div>
+</section>
+{% endblock %}

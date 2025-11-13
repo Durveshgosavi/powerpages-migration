@@ -71,33 +71,64 @@ def inject_current_year():
 
 @app.route('/')
 def index():
-    return render_template('index.html')
+    return render_template('home.html')
 
 @app.route('/emissioner-og-baeredygtighed')
 def emissions_sustainability():
-    return render_template('emissions_sustainability.html')
+    return render_template('emissions/main.html')
 
 @app.route('/emissioner-og-baeredygtighed/fodevare-relaterede-emissioner')
 def food_emissions():
-    return render_template('food_emissions.html')
+    return render_template('emissions/food_emissions.html')
 
 @app.route('/emissioner-og-baeredygtighed/datadrevet-tilgang')
 def data_driven_approach():
-    return render_template('data_driven_approach.html')
+    return render_template('emissions/data_driven_approach.html')
 
 @app.route('/emissioner-og-baeredygtighed/branchepraestation')
 def market_analysis():
-    return render_template('market_analysis.html')
+    return render_template('emissions/market_analysis.html')
 
 @app.route('/emissioner-og-baeredygtighed/politisk-landskab')
 def political_landscape():
-    return render_template('political_landscape.html')
+    return render_template('emissions/political_landscape.html')
 
 @app.route('/emissioner-og-baeredygtighed/klimadata')
 def climate_data():
-    return render_template('climate_data.html')
+    return render_template('emissions/climate_data.html')
 
-# Add more routes for your other pages here
+@app.route('/oekologi')
+def ecology():
+    return render_template('ecology/main.html')
+
+# Økologi routes
+@app.route('/okologi')
+def okologi():
+    return render_template('okologi/index.html')
+
+@app.route('/okologi/hvad-er')
+def okologi_hvad_er():
+    return render_template('okologi/okologi_hvad_er.html')
+
+@app.route('/okologi/regulering')
+def okologi_regulering():
+    return render_template('okologi/okologi_regulering.html')
+
+@app.route('/okologi/kantinen')
+def okologi_kantinen():
+    return render_template('okologi/okologi_kantinen.html')
+
+@app.route('/okologi/fordele')
+def okologi_fordele():
+    return render_template('okologi/okologi_fordele.html')
+
+@app.route('/okologi/nuanceret')
+def okologi_nuanceret():
+    return render_template('okologi/okologi_nuanceret.html')
+
+@app.route('/okologi/esg')
+def okologi_esg():
+    return render_template('okologi/okologi_esg.html')
 
 # ============================================================================
 # CO2 CALCULATOR

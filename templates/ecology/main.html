@@ -1,0 +1,140 @@
+{% extends "base.html" %}
+
+{% block title %}Økologi - Økologisk Landbrug | Vidensbank{% endblock %}
+
+{% block content %}
+<div class="container py-5">
+    <!-- Hero Section -->
+    <div class="row mb-5">
+        <div class="col-12">
+            <h1 class="display-4 fw-bold text-primary">Økologisk Landbrug</h1>
+            <p class="lead">Bæredygtig fødevareproduktion i harmoni med naturen</p>
+        </div>
+    </div>
+
+    <!-- Introduction -->
+    <div class="row mb-5">
+        <div class="col-lg-8">
+            <div class="card shadow-sm">
+                <div class="card-body p-4">
+                    <h2 class="h3 mb-4">Hvad er Økologi?</h2>
+                    <p>Økologisk landbrug er en produktionsmetode, der tager særligt hensyn til miljøet, biodiversiteten og dyrevelfærden. Det økologiske landbrug arbejder efter princippet om at arbejde med naturen frem for imod den.</p>
+
+                    <h3 class="h5 mt-4 mb-3">Kerneprincipper:</h3>
+                    <ul class="list-group list-group-flush">
+                        <li class="list-group-item"><strong>Ingen syntetiske pesticider:</strong> Brug af naturlige metoder til skadedyrsbekæmpelse</li>
+                        <li class="list-group-item"><strong>Ingen kunstgødning:</strong> Næringsstoffer fra organiske kilder og sædskifte</li>
+                        <li class="list-group-item"><strong>Dyrevelfærd:</strong> Bedre plads og adgang til udearealer</li>
+                        <li class="list-group-item"><strong>Biodiversitet:</strong> Fremme af naturlige økosystemer og varieret dyrkningsmetoder</li>
+                        <li class="list-group-item"><strong>Ingen GMO:</strong> Forbud mod genetisk modificerede organismer</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+        <div class="col-lg-4">
+            <div class="card shadow-sm bg-success text-white">
+                <div class="card-body">
+                    <h3 class="h5">Økologi i Danmark</h3>
+                    <div class="d-flex align-items-center mb-3">
+                        <img src="{{ url_for('static', filename='images/Danish-Økologi.png') }}" alt="Dansk Økologi Logo" class="img-fluid" style="max-height: 100px;">
+                    </div>
+                    <p class="mb-2"><strong>Danmark er førende:</strong></p>
+                    <ul class="small">
+                        <li>Over 10% af landbrugsarealet er økologisk</li>
+                        <li>Højeste markedsandel i verden</li>
+                        <li>Strenge certificeringskrav</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Benefits -->
+    <div class="row mb-5">
+        <div class="col-12">
+            <h2 class="h3 mb-4">Fordele ved Økologisk Landbrug</h2>
+        </div>
+        <div class="col-md-4 mb-4">
+            <div class="card h-100 shadow-sm">
+                <div class="card-body">
+                    <div class="text-success mb-3">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="48" height="48" fill="currentColor" class="bi bi-droplet" viewBox="0 0 16 16">
+                            <path fill-rule="evenodd" d="M7.21.8C7.69.295 8 0 8 0c.109.363.234.708.371 1.038.812 1.946 2.073 3.35 3.197 4.6C12.878 7.096 14 8.345 14 10a6 6 0 0 1-12 0C2 6.668 5.58 2.517 7.21.8zm.413 1.021A31.25 31.25 0 0 0 5.794 3.99c-.726.95-1.436 2.008-1.96 3.07C3.304 8.133 3 9.138 3 10a5 5 0 0 0 10 0c0-1.201-.796-2.157-2.181-3.7l-.03-.032C9.75 5.11 8.5 3.72 7.623 1.82z"/>
+                        </svg>
+                    </div>
+                    <h3 class="h5 card-title">Bedre Vandkvalitet</h3>
+                    <p class="card-text">Mindre udvaskning af nitrat og pesticider beskytter grundvandet og vandløb.</p>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-4 mb-4">
+            <div class="card h-100 shadow-sm">
+                <div class="card-body">
+                    <div class="text-success mb-3">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="48" height="48" fill="currentColor" class="bi bi-bug" viewBox="0 0 16 16">
+                            <path d="M4.355.522a.5.5 0 0 1 .623.333l.291.956A4.979 4.979 0 0 1 8 1c1.007 0 1.946.298 2.731.811l.29-.956a.5.5 0 1 1 .957.29l-.41 1.352A4.985 4.985 0 0 1 13 6h.5a.5.5 0 0 0 .5-.5V5a.5.5 0 0 1 1 0v.5A1.5 1.5 0 0 1 13.5 7H13v1h1.5a.5.5 0 0 1 0 1H13v1h.5a1.5 1.5 0 0 1 1.5 1.5v.5a.5.5 0 1 1-1 0v-.5a.5.5 0 0 0-.5-.5H13a5 5 0 0 1-10 0h-.5a.5.5 0 0 0-.5.5v.5a.5.5 0 1 1-1 0v-.5A1.5 1.5 0 0 1 2.5 10H3V9H1.5a.5.5 0 0 1 0-1H3V7h-.5A1.5 1.5 0 0 1 1 5.5V5a.5.5 0 0 1 1 0v.5a.5.5 0 0 0 .5.5H3c0-1.364.547-2.601 1.432-3.503l-.41-1.352a.5.5 0 0 1 .333-.623zM4 7v4a4 4 0 0 0 3.5 3.97V7H4zm4.5 0v7.97A4 4 0 0 0 12 11V7H8.5zM12 6a3.989 3.989 0 0 0-1.334-2.982A3.983 3.983 0 0 0 8 2a3.983 3.983 0 0 0-2.667 1.018A3.989 3.989 0 0 0 4 6h8z"/>
+                        </svg>
+                    </div>
+                    <h3 class="h5 card-title">Øget Biodiversitet</h3>
+                    <p class="card-text">Flere insekter, fugle og vilde planter trives i økologiske landbrugssystemer.</p>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-4 mb-4">
+            <div class="card h-100 shadow-sm">
+                <div class="card-body">
+                    <div class="text-success mb-3">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="48" height="48" fill="currentColor" class="bi bi-heart-pulse" viewBox="0 0 16 16">
+                            <path d="m8 2.748-.717-.737C5.6.281 2.514.878 1.4 3.053.918 3.995.78 5.323 1.508 7H.43c-2.128-5.697 4.165-8.83 7.394-5.857.06.055.119.112.176.171a3.12 3.12 0 0 1 .176-.17c3.23-2.974 9.522.159 7.394 5.856h-1.078c.728-1.677.59-3.005.108-3.947C13.486.878 10.4.28 8.717 2.01L8 2.748ZM2.212 10h1.315C4.593 11.183 6.05 12.458 8 13.795c1.949-1.337 3.407-2.612 4.473-3.795h1.315c-1.265 1.566-3.14 3.25-5.788 5-2.648-1.75-4.523-3.434-5.788-5Z"/>
+                            <path d="M10.464 3.314a.5.5 0 0 0-.945.049L7.921 8.956 6.464 5.314a.5.5 0 0 0-.88-.091L3.732 8H.5a.5.5 0 0 0 0 1H4a.5.5 0 0 0 .416-.223l1.473-2.209 1.647 4.118a.5.5 0 0 0 .945-.049l1.598-5.593 1.457 3.642A.5.5 0 0 0 12 9h3.5a.5.5 0 0 0 0-1h-3.162l-1.874-4.686Z"/>
+                        </svg>
+                    </div>
+                    <h3 class="h5 card-title">Dyrevelfærd</h3>
+                    <p class="card-text">Dyr har bedre forhold med mere plads og adgang til udearealer.</p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Certification Levels -->
+    <div class="row mb-5">
+        <div class="col-12">
+            <h2 class="h3 mb-4">Økologi Certificeringsniveauer</h2>
+            <div class="card shadow-sm">
+                <div class="card-body p-4">
+                    <div class="row text-center">
+                        <div class="col-md-4 mb-3">
+                            <img src="{{ url_for('static', filename='images/økologi-medal-gold.png') }}" alt="Guld Økologi" class="img-fluid mb-3" style="max-height: 120px;">
+                            <h4 class="h5">Guld</h4>
+                            <p class="small">Højeste økologiske standard med de strengeste krav</p>
+                        </div>
+                        <div class="col-md-4 mb-3">
+                            <img src="{{ url_for('static', filename='images/økologi-medal-silverpng.png') }}" alt="Sølv Økologi" class="img-fluid mb-3" style="max-height: 120px;">
+                            <h4 class="h5">Sølv</h4>
+                            <p class="small">Opfylder EU's økologiske standarder</p>
+                        </div>
+                        <div class="col-md-4 mb-3">
+                            <img src="{{ url_for('static', filename='images/Økologi-medal-bronze.png') }}" alt="Bronze Økologi" class="img-fluid mb-3" style="max-height: 120px;">
+                            <h4 class="h5">Bronze</h4>
+                            <p class="small">Basis økologisk certificering</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Call to Action -->
+    <div class="row">
+        <div class="col-12">
+            <div class="card bg-primary text-white shadow">
+                <div class="card-body p-5 text-center">
+                    <h2 class="h3 mb-3">Interesseret i Økologisk Omstilling?</h2>
+                    <p class="lead mb-4">Kontakt os for mere information om, hvordan du kan komme i gang med økologisk produktion.</p>
+                    <a href="{{ url_for('contact') }}" class="btn btn-light btn-lg">Kontakt Os</a>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}
