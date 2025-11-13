@@ -1,99 +1,349 @@
 {% extends "base.html" %}
 
+{% block title %}Vidensbank | Bæredygtighed & Klimaindsigt{% endblock %}
+
+{% block extra_css %}
+<style>
+/* Hero Section */
+.hero-section {
+    position: relative;
+    background-image: url('https://i.imgur.com/KyuSPXy.jpeg');
+    background-size: cover;
+    background-position: center;
+    color: #FFFFFF;
+    text-align: center;
+    padding: 160px 40px;
+    min-height: 500px;
+}
+
+.hero-overlay {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.4);
+}
+
+.hero-content {
+    position: relative;
+    max-width: 900px;
+    margin: 0 auto;
+    z-index: 10;
+}
+
+.hero-title {
+    font-family: 'Times New Roman', serif;
+    font-weight: normal;
+    font-size: 4.5rem;
+    color: #FFFFFF;
+    text-shadow: 2px 2px 8px rgba(0,0,0,0.5);
+    margin: 0 0 1rem 0;
+    letter-spacing: 1px;
+}
+
+.hero-subtitle {
+    font-size: 1.4rem;
+    line-height: 1.7;
+    color: #FFFFFF;
+    text-shadow: 1px 1px 4px rgba(0,0,0,0.5);
+}
+
+/* Section Styles */
+.section-title {
+    font-family: 'Times New Roman', serif;
+    font-weight: normal;
+    font-size: 2.8rem;
+    color: #333333;
+    letter-spacing: 1px;
+}
+
+.philosophy-section {
+    position: relative;
+    background-image: url('https://images.pexels.com/photos/323682/pexels-photo-323682.jpeg');
+    background-size: cover;
+    background-position: center;
+    padding: 120px 40px;
+}
+
+.philosophy-overlay {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.5);
+}
+
+.philosophy-content {
+    position: relative;
+    max-width: 600px;
+    margin: 0 auto;
+    background-color: rgba(255, 255, 255, 0.95);
+    padding: 50px;
+    text-align: center;
+    border-radius: 8px;
+    box-shadow: 0 8px 32px rgba(0,0,0,0.2);
+}
+
+/* Stats Section */
+.stats-number {
+    font-size: 4.5rem;
+    font-weight: bold;
+    color: #5cb85c;
+    margin-bottom: 1rem;
+}
+
+.stats-title {
+    font-size: 1.2rem;
+    font-weight: bold;
+    color: #333333;
+    margin: 0 0 1rem 0;
+    letter-spacing: 0.5px;
+}
+
+.stat-column {
+    padding: 0 40px;
+    border-right: 1px solid #eeeeee;
+}
+
+.stat-column:last-child {
+    border-right: none;
+}
+
+/* Card Styles */
+.pillar-card {
+    background-color: #FFFFFF;
+    border-radius: 8px;
+    overflow: hidden;
+    box-shadow: 0 4px 15px rgba(0,0,0,0.08);
+    height: 100%;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.pillar-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 8px 25px rgba(0,0,0,0.15);
+}
+
+.pillar-card img {
+    width: 100%;
+    height: 250px;
+    object-fit: cover;
+    display: block;
+}
+
+.pillar-card-content {
+    padding: 30px;
+}
+
+.pillar-card h3 {
+    font-family: 'Times New Roman', serif;
+    font-weight: normal;
+    font-size: 1.8rem;
+    color: #333333;
+    margin: 0 0 1rem 0;
+}
+
+.pillar-card p {
+    line-height: 1.7;
+    font-size: 1.1rem;
+    color: #555;
+}
+
+/* CTA Section */
+.cta-section {
+    background-color: #333333;
+    color: #FFFFFF;
+    text-align: center;
+    padding: 120px 40px;
+}
+
+.cta-title {
+    font-family: 'Times New Roman', serif;
+    font-weight: normal;
+    color: #FFFFFF;
+    font-size: 2.8rem;
+    letter-spacing: 1px;
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+    .hero-title {
+        font-size: 2.5rem;
+    }
+
+    .hero-subtitle {
+        font-size: 1.1rem;
+    }
+
+    .section-title {
+        font-size: 2rem;
+    }
+
+    .stats-number {
+        font-size: 3rem;
+    }
+
+    .stat-column {
+        border-right: none;
+        border-bottom: 1px solid #eeeeee;
+        padding: 30px 20px;
+    }
+
+    .stat-column:last-child {
+        border-bottom: none;
+    }
+}
+</style>
+{% endblock %}
+
 {% block content %}
-<!-- Floating decorative elements -->
-<div class="floating-elements">
-    <div class="floating-element"></div>
-    <div class="floating-element"></div>
-    <div class="floating-element"></div>
-</div>
-
 <!-- Hero Section -->
-<section class="section-landing hero-gradient">
-    <div class="container">
-        <h1 class="section-landing-heading">Velkommen til Vidensbanken</h1>
-        <p class="section-landing-sub-heading">Din centrale kilde til viden om bæredygtighed, emissioner og klimadata</p>
-        <div class="flex-center mt-3">
-            <a href="{{ url_for('emissions_sustainability') }}" class="cta-button primary">Udforsk Emner</a>
-            <a href="{{ url_for('calculator') }}" class="cta-button secondary">Prøv CO2 Beregner</a>
-        </div>
+<section class="hero-section">
+    <div class="hero-overlay"></div>
+    <div class="hero-content">
+        <h1 class="hero-title">Vidensbank</h1>
+        <p class="hero-subtitle">Dataindsigt for en Bæredygtig Fremtid</p>
     </div>
 </section>
 
-<!-- Why Vidensbank Section -->
-<section class="section">
-    <div class="container">
-        <h2 class="section-title">Hvorfor Vidensbank?</h2>
-        <div class="wavy-underline"></div>
-        
-        <div class="grid-4-col card-grid">
-            <div class="kpi-card reveal">
-                <div class="icon">📊</div>
-                <h3>Datadrevet</h3>
-                <p>Baseret på verificerede data fra CONCITO og andre pålidelige kilder</p>
-            </div>
-            
-            <div class="kpi-card reveal">
-                <div class="icon">🌱</div>
-                <h3>Bæredygtig</h3>
-                <p>Fokus på praktiske løsninger for en grønnere fremtid</p>
-            </div>
-            
-            <div class="kpi-card reveal">
-                <div class="icon">🎯</div>
-                <h3>Handlingsrettet</h3>
-                <p>Konkrete værktøjer og guides til at gøre en forskel</p>
-            </div>
-            
-            <div class="kpi-card reveal">
-                <div class="icon">🔍</div>
-                <h3>Transparent</h3>
-                <p>Åben adgang til data og metoder bag vores analyser</p>
+<!-- Intro Section -->
+<section class="py-5 bg-white">
+    <div class="container py-5">
+        <div class="row">
+            <div class="col-12 text-center">
+                <h2 class="section-title mb-4">Viden er den vigtigste råvare i det grønne køkken.</h2>
+                <p class="lead" style="line-height: 1.7; color: #555; max-width: 800px; margin: 0 auto;">
+                    I vores Vidensbank samler vi data og analyser, der gør det muligt at træffe informerede valg.
+                    Vi dykker ned i alt fra råvarers klimaaftryk til gastronomisk innovation, der skaber en mere bæredygtig madkultur.
+                </p>
             </div>
         </div>
     </div>
 </section>
 
-<!-- Popular Topics Section -->
-<section class="section bg-light">
-    <div class="container">
-        <h2 class="section-title">Populære Emner</h2>
-        <div class="wavy-underline"></div>
-        
-        <div class="grid-2-col">
-            <a href="{{ url_for('emissions_sustainability') }}" class="card reveal no-decoration">
-                <h3 class="card-title">
-                    <div class="icon">🌍</div>
-                    Emissioner & Bæredygtighed
-                </h3>
-                <p>Udforsk fødevarers klimaaftryk og hvordan du kan reducere emissioner</p>
-            </a>
-            
-            <a href="{{ url_for('calculator') }}" class="card reveal no-decoration">
-                <h3 class="card-title">
-                    <div class="icon">🧮</div>
-                    CO2 Beregner
-                </h3>
-                <p>Beregn klimaaftrykket af forskellige fødevarer og måltider</p>
-            </a>
+<!-- Philosophy Section -->
+<section class="philosophy-section">
+    <div class="philosophy-overlay"></div>
+    <div class="philosophy-content">
+        <h2 style="font-family: 'Times New Roman', serif; font-size: 2.5rem; color: #333333; margin-top: 0;">
+            Vores Filosofi
+        </h2>
+        <p style="line-height: 1.7; font-size: 1.1rem; color: #555;">
+            Bæredygtighed er ikke et valg, men en forudsætning for kvalitet. Vi tror på, at ansvarlighed fra jord til bord
+            skaber bedre smagsoplevelser, stærkere lokalsamfund og en sundere planet.
+        </p>
+    </div>
+</section>
+
+<!-- Featured Pillars Section -->
+<section class="py-5" style="background-color: #F4F2F1;">
+    <div class="container py-5">
+        <div class="row g-4">
+            <div class="col-md-4">
+                <div class="pillar-card">
+                    <img src="https://i.imgur.com/GiNlKtZ.jpeg" alt="Mark med afgrøder" loading="lazy">
+                    <div class="pillar-card-content">
+                        <h3>Bæredygtigheds-data</h3>
+                        <p>Dybdegående LCA-analyser for at kvantificere fødevarers reelle klimapåvirkning.</p>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-4">
+                <div class="pillar-card">
+                    <img src="https://i.imgur.com/oWMrmSc.jpeg" alt="Lastbil på en vej" loading="lazy">
+                    <div class="pillar-card-content">
+                        <h3>Forsyningskæde Transparens</h3>
+                        <p>Indsigt i råvarernes oprindelse og de skjulte omkostninger i den globale fødevarekæde.</p>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-4">
+                <div class="pillar-card">
+                    <img src="https://i.imgur.com/wWDzfmf.jpeg" alt="Anrettet mad" loading="lazy">
+                    <div class="pillar-card-content">
+                        <h3>Gastronomisk Innovation</h3>
+                        <p>Metoder til at udvikle menuer, der er både klimavenlige, velsmagende og innovative.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Data in Focus Section -->
+<section class="py-5 bg-white">
+    <div class="container py-5">
+        <h2 class="section-title text-center mb-5">Bæredygtighed i Tal</h2>
+        <div class="row text-center">
+            <div class="col-md-4 stat-column mb-4 mb-md-0">
+                <div class="stats-number">12%</div>
+                <h3 class="stats-title">Økologiandel i Detail</h3>
+                <p style="line-height: 1.6; color: #555;">
+                    Danmark har verdens højeste markedsandel, hvilket viser en stærk efterspørgsel efter ansvarlige fødevarer.
+                </p>
+            </div>
+            <div class="col-md-4 stat-column mb-4 mb-md-0">
+                <div class="stats-number">197t</div>
+                <h3 class="stats-title">Madspild Dagligt</h3>
+                <p style="line-height: 1.6; color: #555;">
+                    En ressourceudfordring i servicesektoren alene, der kræver datadrevne løsninger i professionelle køkkener.
+                </p>
+            </div>
+            <div class="col-md-4 stat-column">
+                <div class="stats-number">-63%</div>
+                <h3 class="stats-title">Fra Ambition til Virkelighed</h3>
+                <p style="line-height: 1.6; color: #555;">
+                    Det gennemsnitlige kødindtag (~950g/uge) er langt fra kostrådenes mål (350g). Et gab kantiner kan hjælpe med at lukke.
+                </p>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Data Deep Dive Section -->
+<section class="py-5" style="background-color: #F4F2F1;">
+    <div class="container py-5">
+        <div class="row align-items-center">
+            <div class="col-lg-6">
+                <h2 class="section-title mb-4">Fra Råvare til Regnskab</h2>
+                <p style="line-height: 1.7; font-size: 1.1rem; color: #555;">
+                    Ikke alle råvarer er skabt lige. Klimaaftrykket varierer dramatisk, og et bevidst valg i køkkenet kan have en markant effekt.
+                    Ved at skifte fokus fra de mest klimabelastende proteiner til plantebaserede alternativer, kan vi reducere en rets
+                    klimaaftryk med over 90%.
+                </p>
+                <a href="{{ url_for('emissions_sustainability') }}" class="btn btn-success btn-lg mt-3">
+                    Udforsk Emissionsdata
+                </a>
+            </div>
+            <div class="col-lg-6">
+                <img src="{{ url_for('static', filename='images/Environmental-impacts-of-agriculture-v2.png') }}"
+                     alt="Miljøpåvirkning af landbrug"
+                     class="img-fluid rounded shadow"
+                     loading="lazy">
+            </div>
         </div>
     </div>
 </section>
 
 <!-- CTA Section -->
-<section class="section">
+<section class="cta-section">
     <div class="container">
-        <div class="cta-block">
-            <h2>Kom i Gang</h2>
-            <p>Opret en konto for at få adgang til alle funktioner, gemme dine beregninger og meget mere</p>
-            <div class="mt-3">
-                {% if current_user.is_authenticated %}
-                    <a href="{{ url_for('dashboard') }}" class="cta-button secondary">Gå til Dashboard</a>
-                {% else %}
-                    <a href="{{ url_for('register') }}" class="cta-button secondary">Opret Konto</a>
-                    <a href="{{ url_for('login') }}" class="cta-button secondary ml-2">Log Ind</a>
-                {% endif %}
-            </div>
+        <h2 class="cta-title mb-3">Dyk ned i dataen</h2>
+        <p style="color: #FFFFFF; opacity: 0.9; margin: 1rem auto 2.5rem auto; line-height: 1.7; font-size: 1.1rem; max-width: 800px;">
+            Udforsk vores database og find de indsigter, du har brug for til at træffe informerede, bæredygtige valg.
+        </p>
+        <div class="mt-4">
+            <a href="{{ url_for('emissions_sustainability') }}" class="btn btn-light btn-lg me-3 mb-2">
+                Emissioner & Bæredygtighed
+            </a>
+            <a href="{{ url_for('ecology') }}" class="btn btn-outline-light btn-lg me-3 mb-2">
+                Økologi
+            </a>
+            <a href="{{ url_for('calculator') }}" class="btn btn-success btn-lg mb-2">
+                Klimapotentiale Beregner
+            </a>
         </div>
     </div>
 </section>
